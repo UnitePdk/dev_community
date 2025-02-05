@@ -24,7 +24,7 @@ public class ReplyEntity extends BaseTime {
 
     // 좋아요
     @Column(nullable = false)
-    private int rlike;
+    private int relike; // rlike 예약어가 존재해서 relike 로 변경
 
     // 생성날짜
 

@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "member")
-public class MemberEntity {
+public class MemberEntity extends BaseTime{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int mno; // 회원번호
@@ -23,7 +23,7 @@ public class MemberEntity {
     @Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
     private String mid; // 회원아이디
 
-    @Column(columnDefinition = "varhcar(50)", nullable = false)
+    @Column(columnDefinition = "varchar(50)", nullable = false)
     private String mpwd; // 회원비밀번호
 
     @Column(columnDefinition = "varchar(50)", nullable = false)
@@ -39,6 +39,7 @@ public class MemberEntity {
     private String mimg; // 프로필 사진
 
     // Entity -> Dto
+    /*
     public MemberDto toDto(){
         return MemberDto.builder()
                 .mno(this.mno)
@@ -51,4 +52,5 @@ public class MemberEntity {
                 .mimg(this.mimg)
                 .build();
     }
+     */
 }

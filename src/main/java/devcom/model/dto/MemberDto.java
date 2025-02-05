@@ -20,6 +20,7 @@ public class MemberDto {
     private String mimg; // 프로필 사진
 
     // Dto -> Entity
+    /*
     public MemberEntity toEntity(){
         return MemberEntity.builder()
                 .mno(this.mno)
@@ -32,4 +33,5 @@ public class MemberDto {
                 .mimg(this.mimg)
                 .build();
     }
+    */
 }
