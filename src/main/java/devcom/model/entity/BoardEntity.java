@@ -6,35 +6,39 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "board")
-public class BoardEntity extends BaseTime{
+@Table( name = "board")
+public class BoardEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bno; // 게시글 번호
+    private int bno;
 
-    @Column(nullable = false, columnDefinition = "varchar(50)")
-    private String btitle; // 게시글 제목
+    // 제목
+    @Column(nullable = false, columnDefinition = "varchar(255)")
+    private String btitle;
 
-    @Column(nullable = false, columnDefinition = "longtext")
-    private String bcontent; // 게시글 내용
+    // 내용
+    @Column(columnDefinition = "longtext")
+    private String bcontent;
 
+    // 조회수
     @Column
-    private int bview; // 조회수
+    private int bview;
 
+    // 좋아요
     @Column
-    private int blike; // 좋아요
+    private int blike;
 
-    // 작성자(fk)
-    @ManyToOne
+    // 작성자 fk
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mno")
     private MemberEntity memberEntity;
 
-    // 카테고리(fk)
-    @ManyToOne
+    // 카테고리 fk
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cno")
     private CategoryEntity categoryEntity;
 }
