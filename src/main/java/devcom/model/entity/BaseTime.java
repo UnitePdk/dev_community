@@ -16,6 +16,7 @@ public class BaseTime {
 
     @CreatedDate
     private LocalDateTime cdate;
+
     @LastModifiedDate
     private LocalDateTime udate;
 
