@@ -28,7 +28,9 @@ public class ReplyEntity extends BaseTime {
 
     // 생성날짜
 
+
     // 수정날짜
+
 
     // 댓글 작성자
     @ManyToOne(cascade = CascadeType.ALL)
