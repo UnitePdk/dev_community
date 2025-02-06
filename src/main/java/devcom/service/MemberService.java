@@ -1,7 +1,10 @@
 package devcom.service;
 
 import devcom.model.dto.MemberDto;
+import devcom.model.entity.MemberEntity;
+import devcom.model.repository.FileRepository;
 import devcom.model.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -10,17 +13,35 @@ import org.springframework.web.bind.annotation.*;
 public class MemberService {
 
     @Autowired private MemberRepository memberRepository;
+    @Autowired private FileService fileService;
 
     // 회원가입
+    @Transactional
     public boolean signup(MemberDto memberDto){
-        return false;
-    }
+        if (memberDto.getUploadfile().isEmpty()){
+            memberDto.setMimg("default.jpg");
+        } else {
+            String fileName = fileService.fileUpload(memberDto.getUploadfile());
+            if (fileName == null){return false;}
+            else {
+                memberDto.setMimg(fileName);
+            }
+        }
+        // 엔티티 변환
+        MemberEntity memberEntity = memberDto.toEntity();
+        // 엔티티 저장
+        MemberEntity saveEntity = memberRepository.save(memberEntity);
+            if (saveEntity.getMno() > 0){
+                return true;
+            }
+            return false;
+        }
     // 로그인
     public boolean login(@RequestBody MemberDto memberDto){
         return false;
     }
     // 로그인 된 아이디 조회
-    public String loggedid(){
+    public String loginid(){
         return null;
     }
     // 로그아웃
