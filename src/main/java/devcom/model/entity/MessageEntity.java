@@ -32,10 +32,6 @@ public class MessageEntity {
 
 
     // entity -> dto
-    public MessageEntity toDto(){
-        return MessageDto.builder()
 
-                .build();
-    }
 
 }

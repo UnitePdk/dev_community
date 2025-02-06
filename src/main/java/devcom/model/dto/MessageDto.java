@@ -10,6 +10,9 @@ import lombok.*;
 @Builder
 public class MessageDto {
     // 식별코드
+    private int meno; // 회원번호
+
     // 제목
     // 내용
+    //
 }
