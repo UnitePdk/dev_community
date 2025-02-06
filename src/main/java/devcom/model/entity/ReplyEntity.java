@@ -24,13 +24,7 @@ public class ReplyEntity extends BaseTime {
 
     // 좋아요
     @Column(nullable = false)
-    private int rlike;
-
-    // 생성날짜
-
-
-    // 수정날짜
-
+    private int relike;
 
     // 댓글 작성자
     @ManyToOne(cascade = CascadeType.ALL)
