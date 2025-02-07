@@ -31,11 +31,8 @@ public class MemberService {
         MemberEntity memberEntity = memberDto.toEntity();
         // 엔티티 저장
         MemberEntity saveEntity = memberRepository.save(memberEntity);
-            if (saveEntity.getMno() > 0){
-                return true;
-            }
-            return false;
-        }
+        return saveEntity.getMno() > 0;
+    }
     // 로그인
     public boolean login(@RequestBody MemberDto memberDto){
         return false;
