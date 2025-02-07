@@ -39,6 +39,7 @@ public class MemberEntity extends BaseTime{
     private String mimg; // 프로필 사진
 
     // Entity -> Dto
+    /*
     public MemberDto toDto(){
         return MemberDto.builder()
                 .mno(this.mno)
@@ -51,4 +52,5 @@ public class MemberEntity extends BaseTime{
                 .mimg(this.mimg)
                 .build();
     }
+     */
 }

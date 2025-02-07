@@ -1,5 +1,6 @@
 package devcom.model.entity;
 
+import devcom.model.dto.BoardDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -41,4 +42,17 @@ public class BoardEntity extends BaseTime {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cno")
     private CategoryEntity categoryEntity;
+
+    public BoardDto toDto() {
+        return BoardDto.builder()
+                .bno(this.bno)
+                .btitle(this.btitle)
+                .bcontent(this.bcontent)
+                .bview(this.bview)
+                .mno(this.memberEntity.getMno())
+                .cno(this.categoryEntity.getCno())
+                .cname(this.categoryEntity.getCname())
+                .cdate(this.getCdate().toString())
+                .build();
+    }
 }
