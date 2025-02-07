@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "member")
-public class MemberEntity extends BaseTime{
+public class MemberEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int mno; // 회원번호
@@ -39,8 +39,7 @@ public class MemberEntity extends BaseTime{
     private String mimg; // 프로필 사진
 
     // Entity -> Dto
-    /*
-    public MemberDto toDto(){
+    public MemberDto toDto() {
         return MemberDto.builder()
                 .mno(this.mno)
                 .mname(this.mname)
@@ -52,5 +51,4 @@ public class MemberEntity extends BaseTime{
                 .mimg(this.mimg)
                 .build();
     }
-     */
 }
