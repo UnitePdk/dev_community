@@ -12,7 +12,7 @@ import lombok.*;
 @Entity
 @Table(name = "reply")
 public class ReplyEntity extends BaseTime {
-    
+
     // 댓글 번호
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +36,10 @@ public class ReplyEntity extends BaseTime {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mno")
     private MemberEntity memberEntity;
-    
+
     // (종속된)게시판 번호
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bno")
     private BoardEntity boardEntity;
-    
+
 }
