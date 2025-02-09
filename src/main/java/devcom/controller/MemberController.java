@@ -23,12 +23,12 @@ public class MemberController {
     // 로그인 된 아이디 조회
     @GetMapping("/member/login/id")
     public String loginid(){
-        return memberService.loginid();
+        return memberService.getSession();
     }
     // 로그아웃
     @GetMapping("/member/logout.do")
     public boolean logout(){
-        return memberService.logout();
+        return memberService.deleteSession();
     }
     // 로그인 된 회원 정보 조회
     @GetMapping("/member/info.do")
@@ -45,5 +45,4 @@ public class MemberController {
     public boolean update(@RequestBody MemberDto memberDto){
         return memberService.update(memberDto);
     }
-
 }
