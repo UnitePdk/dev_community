@@ -26,12 +26,6 @@ public class ReplyEntity extends BaseTime {
     @Column(nullable = false)
     private int relike; // rlike 예약어가 존재해서 relike 로 변경
 
-    // 생성날짜
-
-
-    // 수정날짜
-
-
     // 댓글 작성자
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mno")
