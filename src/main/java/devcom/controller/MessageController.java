@@ -15,21 +15,24 @@ public class MessageController {
 
     // [1] 메세지 보내기
     @PostMapping("/message/send.do") //http://localhost:8080/message/send.do
-    public boolean sendMessage(@RequestBody MessageDto messageDto) {
-        return messageService.send(messageDto);
+    public ResponseEntity<Boolean> sendMessage(@RequestBody MessageDto messageDto) {
+        boolean result = messageService.send(messageDto);
+        return ResponseEntity.ok(result);
     }
 
-    // [2] 받은 메세지 조회
-    @GetMapping("/message/receive/find.do") //
-    public List<MessageDto> FindReceiveMessage(@RequestParam int mno){ // 회원 조회
-        return messageService.getReceiveMessages(mno);
-    }
-
-    // [3] 보낸 메세지 조회
-    @GetMapping("/message/send/find.do")
-    public List<MessageDto> FindSendMessage(@RequestParam int mno) {
-        return messageService.getSendMessages(mno);
-    }
+//    // [2] 받은 메세지 조회
+//    @GetMapping("/message/receive/find.do") //
+//    public ResponseEntity<List<MessageDto>> findReceiveMessage(@RequestParam int mno){
+//        List<MessageDto> messages = messageService.getReceiveMessages(mno);
+//        return ResponseEntity.ok(messages);
+//    }
+//
+//    // [3] 보낸 메세지 조회
+//    @GetMapping("/message/send/find.do")
+//    public ResponseEntity<List<MessageDto>> FindSendMessage(@RequestParam int mno) {
+//        List<MessageDto> messages = messageService.getSendMessages(mno);
+//        return ResponseEntity.ok(messages);
+//    }
 
 
 //    // 메세지 삭제
@@ -43,13 +46,18 @@ public class MessageController {
 //        }
 //    }
 
-    // [4] 받은 메세지 삭제
+    // [4] 보낸 메세지 삭제
     @DeleteMapping("/message/send/delete.do")
-    public boolean deleteSendMessage(@RequestParam int meno, @RequestParam int mno) {
-        return messageService.deleteSendMessage(meno, mno);
+    public ResponseEntity<Boolean> deleteSendMessage(@RequestParam int meno, @RequestParam int mno){
+        boolean result = messageService.deleteSendMessage(meno,mno);
+        if(result) {
+            return ResponseEntity.ok(true);
+        } else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+        }
     }
 
-    // [5] 보낸 메세지 삭제
+    // [5] 받은 메세지 삭제
     @DeleteMapping("/message/receiver/delete.do")
     public boolean deleteReceiveMessage(@RequestParam int meno, @RequestParam int mno) {
         return messageService.deleteReceivedMessage(meno, mno);
