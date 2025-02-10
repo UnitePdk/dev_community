@@ -1,5 +1,6 @@
 package devcom.model.entity;
 
+import devcom.model.dto.ReplyDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,5 +36,16 @@ public class ReplyEntity extends BaseTime {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bno")
     private BoardEntity boardEntity;
+
+    // entity --> dto 반환
+//    public ReplyDto toDto() {
+//        return ReplyDto.builder()
+//                .rno(this.rno)
+//                .rcontent(this.rcontent)
+//                .relike(this.relike)
+//                .mno(this.memberEntity.getMno())
+//                .bno(this.boardEntity.getBno())
+//                .build();
+//    }
 
 }
