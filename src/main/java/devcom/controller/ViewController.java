@@ -19,12 +19,14 @@ public class ViewController {
     public String signup(){ return "signup.html";}
 
     // 마이페이지 반환
-    @GetMapping("member/mypage")
+    @GetMapping("/member/mypage")
     public String mypage(){ return "mypage.html";}
 
     // 수정 페이지 반환
-    @GetMapping("member/update")
+    @GetMapping("/member/update")
     public String myUpdate() { return "myUpdate.html";}
 
-    //
+    // 문제은행 페이지 반환
+    @GetMapping("/board/question")
+    public String question() { return "/board/question/list.html";}
 }
