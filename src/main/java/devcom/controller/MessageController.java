@@ -22,8 +22,8 @@ public class MessageController {
 
 //    // [2] 받은 메세지 조회
 //    @GetMapping("/message/receive/find.do") //
-//    public ResponseEntity<List<MessageDto>> findReceiveMessage(@RequestParam int mno){
-//        List<MessageDto> messages = messageService.getReceiveMessages(mno);
+//    public ResponseEntity<List<MessageDto>> findReceiveMessage(@RequestParam int receivermno){
+//        List<MessageDto> messages = messageService.getReceiveMessages(receivermno);
 //        return ResponseEntity.ok(messages);
 //    }
 //

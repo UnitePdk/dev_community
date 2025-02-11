@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<MessageEntity, Integer> {
-//    List<MessageEntity> findByReceiver(MemberEntity memberEntity);
-//    List<MessageEntity> findBySender(MemberEntity memberEntity);
-//
-
+    // 수신자로 메세지 찾기
+    List<MessageEntity> findByReceivermno(MemberEntity receivermno);
+    // 송신자로 메세지 찾기
+    List<MessageEntity> findBySendermno(MemberEntity sendermno);
 }

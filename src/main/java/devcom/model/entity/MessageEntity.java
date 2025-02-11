@@ -22,6 +22,7 @@ public class MessageEntity {
     private String mecontent; // 내용
 
 
+
     // sender_mno와 receiver_mno는 각각 외래 키로 다른 컬럼을 참조하도록 설정
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sendermno", updatable = false, nullable = false)  // 송신자 외래 키

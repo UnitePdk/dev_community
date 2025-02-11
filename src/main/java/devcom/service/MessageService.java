@@ -49,21 +49,6 @@ public class MessageService {
                 messageRepository.save(messageEntity);
                 return true;
             }
-            // DB에 입력 안됌
-
-//            if(optionalSender.isPresent() && optionalReceiver.isPresent()){
-//                // 2. MessageEntity 생성
-//                MessageEntity messageEntity = messageDto.toEntity();
-//                messageEntity.setSendermno(optionalSender.get());
-//                messageEntity.setReceivermno(optionalReceiver.get());
-//
-//                System.out.println("MessageEntity 생성완료: " + messageEntity);
-//
-//                // 3. 저장
-//                messageRepository.save(messageEntity);
-//                System.out.println("메세지 저장 완료");
-//                return true;
-//            }
 
             System.out.println("메세지 전송 실패: 보낸사람 또는 받는 사람 없음");
 
@@ -74,68 +59,79 @@ public class MessageService {
         }
     }
 
-//    // [2] 받은 메세지 조회
+    // [2] 받은 메세지 조회
+    @Transactional(readOnly = true)
+    public List<MessageDto> getReceiveMessages(int mno) {
+        // 1. 회원 찾기
+        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
+        List<MessageDto> list = new ArrayList<>();
+
+        if(memberOtp.isPresent()) {
+            // 2. 받은 메세지 찾기
+            List<MessageEntity> messageEntities = messageRepository.findByReceivermno(memberOtp.get());
+            // 3. 엔티티 리스트를 Dto 리스트로 변환
+            messageEntities.forEach(entity -> {MessageDto dto = entity.toDto();
+            // 송신자와 수신자의 아이디 설정
+            dto.setSendmid(entity.getSendermno().getMid());
+            dto.setReceivermid(entity.getReceivermno().getMid());
+            list.add(dto);
+            });
+        }
+        return list;
+    }
+
+    // [2] 받은 메세지 조회
 //    @Transactional(readOnly = true)
-//    public List<MessageDto> getReceiveMessages(int mno) {
-//        // 1. 회원 찾기
-//        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
-//        List<MessageDto> list = new ArrayList<>();
+//    public List<MessageDto> findReceiveMessage(int mno) {
+//        try {
+//            Optional<MessageEntity> memberOtp = memberRepository.findById(mno);
 //
-//        if(memberOtp.isPresent()) {
-//            // 2. 받은 메세지 찾기
-//            List<MessageEntity> messageEntities = messageRepository.findByReceiver(memberOtp.get());
-//            // 3. 엔티티 리스트를 Dto 리스트로 변환
-//            messageEntities.forEach(entity -> {MessageDto dto = entity.toDto();
-//            // 송신자와 수신자의 아이디 설정
-//            dto.setSendmid(entity.getSendermno().getMid());
-//            dto.setReceivermid(entity.getReceivermno().getMid());
-//            list.add(dto);
-//            });
+//            if(memberOtp)
 //        }
-//        return list;
-//    }
-//
-//    // [3] 보낸 메세지 조회
-//    @Transactional(readOnly = true)
-//    public List<MessageDto> getSendMessages(int mno) {
-//        // 1. 회원 찾기
-//        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
-//        List<MessageDto> list = new ArrayList<>();
-//
-//        if(memberOtp.isPresent()) {
-//            // 2. 보낸 메세지 찾기
-//            List<MessageEntity> messageEntities = messageRepository.findBySender(memberOtp.get());
-//            // 3. 엔티티 리스트를 Dto 리스트로 변환
-//            messageEntities.forEach(entity -> {
-//                MessageDto dto = entity.toDto();
-//                // 송신자와 수신자의 아이디 설정
-//                dto.setSendmid(entity.getSendermno().getMid());
-//                dto.setReceivermid(entity.getReceivermno().getMid());
-//                list.add(dto);
-//            });
-//        }
-//        return list;
 //    }
 
-//    // [4] 메세지 삭제
-//    public boolean deleteMessage(int meno, int mno) {
-//        try{
-//            Optional<MessageEntity> messageOtp = messageRepository.findById(meno);
 //
-//            if(messageOtp.isPresent()){
-//                MessageEntity message = messageOtp.get();
-//                // 메세지 송신자나 수진자 요청한 사용자인 경우에만 삭제
-//                if(message.getSendermno().getMno() == mno || message.getReceivermno().getMno() == mno) {
-//                    messageRepository.delete(message);
-//                    return true;
-//                }
-//            }
-//            return false;
-//        } catch (Exception e) {
-//            System.out.println("메세지 삭제 실패: " + e);
-//            return false;
-//        }
-//    }
+    // [3] 보낸 메세지 조회
+    @Transactional(readOnly = true)
+    public List<MessageDto> getSendMessages(int mno) {
+        // 1. 회원 찾기
+        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
+        List<MessageDto> list = new ArrayList<>();
+
+        if(memberOtp.isPresent()) {
+            // 2. 보낸 메세지 찾기
+            List<MessageEntity> messageEntities = messageRepository.findBySendermno(memberOtp.get());
+            // 3. 엔티티 리스트를 Dto 리스트로 변환
+            messageEntities.forEach(entity -> {
+                MessageDto dto = entity.toDto();
+                // 송신자와 수신자의 아이디 설정
+                dto.setSendmid(entity.getSendermno().getMid());
+                dto.setReceivermid(entity.getReceivermno().getMid());
+                list.add(dto);
+            });
+        }
+        return list;
+    }
+
+    // [4] 메세지 삭제
+    public boolean deleteMessage(int meno, int mno) {
+        try{
+            Optional<MessageEntity> messageOtp = messageRepository.findById(meno);
+
+            if(messageOtp.isPresent()){
+                MessageEntity message = messageOtp.get();
+                // 메세지 송신자나 수진자 요청한 사용자인 경우에만 삭제
+                if(message.getSendermno().getMno() == mno || message.getReceivermno().getMno() == mno) {
+                    messageRepository.delete(message);
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("메세지 삭제 실패: " + e);
+            return false;
+        }
+    }
 
     // [4] 보낸 메세지 삭제
     public boolean deleteSendMessage(int meno, int mno) {
