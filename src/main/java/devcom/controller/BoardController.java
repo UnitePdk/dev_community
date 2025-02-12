@@ -48,11 +48,11 @@ public class BoardController {
         return boardService.boardWrite(boardDto);
     }
 
-    // 게시물 개별 조회
-    @GetMapping("/board/view.do")
-    public BoardDto boardView(@RequestParam int index){
-        return boardService.boardView(index);
-    }
+//    // 게시물 개별 조회
+//    @GetMapping("/board/view.do")
+//    public BoardDto boardView(@RequestParam int index){
+//        return boardService.boardView(index);
+//    }
 
     // 게시물 수정
     @PutMapping("/board/update.do")
