@@ -1,0 +1,41 @@
+/* 웹 폰트 */
+@font-face {
+  font-family: "SBAggroB";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 모든 폰트를 웹 폰트로 변경 */
+* {
+  font-family: "SBAggroB";
+}
+
+/* 글로벌 css */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 100px;
+}
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  width: 100%;
+  height: 100%;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+section {
+  border: solid 1px black;
+  width: 300px;
+  height: 300px;
+}

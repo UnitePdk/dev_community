@@ -12,7 +12,7 @@ public class MemberController {
 
     // 회원가입
     @PostMapping("/member/signup.do")
-    public boolean signup(MemberDto memberDto){
+    public boolean signup(MemberDto memberDto){ // multipart/form-data
         return memberService.signup(memberDto); // *첨부파일 포함
     }
     // 로그인
@@ -21,14 +21,14 @@ public class MemberController {
         return memberService.login(memberDto);
     }
     // 로그인 된 아이디 조회
-    @GetMapping("/member/logged/id")
-    public String loggedid(){
-        return memberService.loggedid();
+    @GetMapping("/member/login/id")
+    public String loginid(){
+        return memberService.getSession();
     }
     // 로그아웃
     @GetMapping("/member/logout.do")
     public boolean logout(){
-        return memberService.logout();
+        return memberService.deleteSession();
     }
     // 로그인 된 회원 정보 조회
     @GetMapping("/member/info.do")
@@ -45,5 +45,4 @@ public class MemberController {
     public boolean update(@RequestBody MemberDto memberDto){
         return memberService.update(memberDto);
     }
-
 }
