@@ -2,7 +2,6 @@ package devcom.model.dto;
 
 import devcom.model.entity.MemberEntity;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -18,8 +17,6 @@ public class MemberDto {
     private String memail; // 회원이메일
     private String mphone; // 회원 전화번호
     private String mbirth; // 회원 생년월일
-    private String mimg; // 프로필 사진
-    private MultipartFile uploadfile; // 파일
 
     // Dto -> Entity
     public MemberEntity toEntity(){
@@ -31,7 +28,6 @@ public class MemberDto {
                 .memail(this.memail)
                 .mphone(this.mphone)
                 .mbirth(this.mbirth)
-                .mimg(this.mimg)
                 .build();
     }
 }

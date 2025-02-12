@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberService {
 
     @Autowired private MemberRepository memberRepository;
-    @Autowired private FileService fileService;
     @Autowired private HttpServletRequest httpServletRequest; // 세션 객체 호출
 
     // 세션 함수
@@ -47,6 +46,7 @@ public class MemberService {
     // 회원가입
     @Transactional
     public boolean signup(MemberDto memberDto){
+        /*
         if ((memberDto.getUploadfile() == null || memberDto.getUploadfile().isEmpty())){ // null 체크로 nullPointException 방지
             memberDto.setMimg("default.jpg");
         } else {
@@ -56,6 +56,7 @@ public class MemberService {
                 memberDto.setMimg(fileName);
             }
         }
+         */
         // 엔티티 변환
         MemberEntity memberEntity = memberDto.toEntity();
         // 엔티티 저장
