@@ -19,11 +19,11 @@ public class ViewController {
     public String signup(){ return "/member/signup.html";}
 
     // 마이페이지 반환
-    @GetMapping("member/info")
+    @GetMapping("/member/info")
     public String info(){ return "/member/info.html";}
 
     // 수정 페이지 반환
-    @GetMapping("member/update")
+    @GetMapping("/member/update")
     public String Update() { return "/member/update.html";}
 
     //
