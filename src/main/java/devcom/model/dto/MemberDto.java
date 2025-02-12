@@ -17,10 +17,8 @@ public class MemberDto {
     private String memail; // 회원이메일
     private String mphone; // 회원 전화번호
     private String mbirth; // 회원 생년월일
-    private String mimg; // 프로필 사진
 
     // Dto -> Entity
-    /*
     public MemberEntity toEntity(){
         return MemberEntity.builder()
                 .mno(this.mno)
@@ -30,8 +28,6 @@ public class MemberDto {
                 .memail(this.memail)
                 .mphone(this.mphone)
                 .mbirth(this.mbirth)
-                .mimg(this.mimg)
                 .build();
     }
-    */
 }

@@ -2,17 +2,26 @@ package devcom.service;
 
 import devcom.model.dto.BoardDto;
 import devcom.model.dto.MemberDto;
+import devcom.model.dto.PageDto;
+import devcom.model.dto.ReplyDto;
 import devcom.model.entity.BoardEntity;
 import devcom.model.entity.CategoryEntity;
 import devcom.model.entity.MemberEntity;
+import devcom.model.entity.ReplyEntity;
 import devcom.model.repository.BoardRepository;
 import devcom.model.repository.CategoryRepository;
 import devcom.model.repository.MemberRepository;
+import devcom.model.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -25,6 +34,8 @@ public class BoardService {
     BoardRepository boardRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    ReplyRepository replyRepository;
 
     // 게시물 목록 조회 - 질문
     public List<BoardDto> boardAsk() {
@@ -75,8 +86,10 @@ public class BoardService {
     }
 
     // 게시물 목록 조회 - 문제은행
-    public List<BoardDto> boardQuestion() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
+    public PageDto boardQuestion(int page) {
+        // 페이징
+        Pageable pageable= PageRequest.of(page-1, 2, Sort.by(Sort.Direction.DESC, "bno"));
+        Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
 
         // 문제은행 카테고리만 dto로 변환
         List<BoardDto> boardDtoList = new ArrayList<>();
@@ -87,7 +100,21 @@ public class BoardService {
             }
         });
 
-        return boardDtoList;
+        // 전체 페이지 수
+        int totalPage=boardEntityList.getTotalPages();
+        // 전체 게시글 수
+        long totalCount=boardEntityList.getTotalElements();
+        // 버튼 개수
+        int btnSize=10;
+        // 시작 번호
+        int startBtn=((page-1)/btnSize)*btnSize+1;
+        // 끝 번호
+        int endBtn=startBtn+btnSize-1;
+        if(endBtn>=totalPage) endBtn=totalPage;
+
+        PageDto pageDto=PageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(boardDtoList).build();
+
+        return pageDto;
     }
 
     // // 게시물 목록 조회 - 전체
@@ -125,8 +152,26 @@ public class BoardService {
     }
 
     // 게시물 개별 조회
-    public BoardDto boardFind(int index) {
-        return null;
+    public BoardDto boardView(int index) {
+        // Optional로 변환하여 isPresent 검사한 후 dto로 변환
+        Optional< BoardEntity > optional = boardRepository.findById( index );
+        if( optional.isPresent() ){
+            BoardEntity boardEntity = optional.get();
+            BoardDto boardDto = boardEntity.toDto();
+
+            // 모든 데이터 조회
+            List<ReplyEntity> replyEntityList = replyRepository.findAll();
+            List<ReplyDto> replyList = new ArrayList<>();
+            replyEntityList.forEach( (reply) ->{
+                if( reply.getBoardEntity().getBno() == index ){
+                    ReplyDto replyDto = reply.toDto();
+                    replyList.add( replyDto );
+                }
+            }); // foreach end
+            boardDto.setReplyList( replyList );
+            return boardDto;
+        } // if end
+        return null; // 조회 결과 엔티티가 없으면 null 반환
     }
 
     // 게시물 수정

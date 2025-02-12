@@ -1,6 +1,7 @@
 package devcom.controller;
 
 import devcom.model.dto.BoardDto;
+import devcom.model.dto.PageDto;
 import devcom.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public class BoardController {
 
     // 게시물 목록 조회 - 문제은행
     @GetMapping("/board/question.do")
-    public List<BoardDto> boardQuestion(){
-        return boardService.boardQuestion();
+    public PageDto boardQuestion(@RequestParam int page){
+        return boardService.boardQuestion(page);
     }
 
     // 게시물 목록 조회 - 전체
@@ -49,9 +50,9 @@ public class BoardController {
     }
 
     // 게시물 개별 조회
-    @GetMapping("/board/find.do")
-    public BoardDto boardFind(@RequestParam int index){
-        return boardService.boardFind(index);
+    @GetMapping("/board/view.do")
+    public BoardDto boardView(@RequestParam int index){
+        return boardService.boardView(index);
     }
 
     // 게시물 수정

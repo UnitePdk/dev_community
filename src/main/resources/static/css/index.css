@@ -1,3 +1,17 @@
+/* 웹 폰트 */
+@font-face {
+  font-family: "SBAggroB";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 모든 폰트를 웹 폰트로 변경 */
+* {
+  font-family: "SBAggroB";
+}
+
 /* 글로벌 css */
 body {
   display: flex;
@@ -24,31 +38,4 @@ section {
   border: solid 1px black;
   width: 300px;
   height: 300px;
-}
-
-/* 헤더 */
-header {
-  display: flex;
-  justify-content: space-between;
-}
-#header_right {
-  display: flex;
-  gap: 10px;
-}
-#header_right > span {
-  background-color: skyblue;
-}
-
-/* 메뉴 */
-nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.menu {
-  background-color: skyblue;
-}
-.menu > a {
-  color: white;
-  font-size: 24px;
 }
