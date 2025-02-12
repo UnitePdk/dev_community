@@ -1,25 +1,3 @@
-/* 글로벌 css */
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  gap: 100px;
-}
-.link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-a {
-  width: 100%;
-  height: 100%;
-  padding: 20px 10px;
-  text-align: center;
-  text-decoration: none;
-}
-
 /* 헤더 */
 header {
   display: flex;
