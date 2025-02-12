@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="/js/board/question/view.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div th:replace="~{ /header.html :: header }"></div>
+
+      <div class="infobox">
+        <span class="mimg"> 작성자 프로필 들어가는 곳 </span>
+        <span class="mid"> 작성자 아이디 </span>
+        <span class="bview"> 조회수 </span>
+        <span class="cdate"> 작성일 </span>
+      </div>
+
+      <div class="btitle">게시물 제목</div>
+      <div class="bcontent">게시물 내용</div>
+
+      <div>
+        <textarea class="rcontentInput"> </textarea>
+        <button onclick="onReplyWrite()" type="button">댓글 게시</button>
+      </div>
+    </div>
+  </body>
+</html>

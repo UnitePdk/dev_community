@@ -1,6 +1,5 @@
 package devcom.controller;
 
-import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -20,12 +19,20 @@ public class ViewController {
     public String signup(){ return "signup.html";}
 
     // 마이페이지 반환
-    @GetMapping("member/mypage")
+    @GetMapping("/member/mypage")
     public String mypage(){ return "mypage.html";}
 
     // 수정 페이지 반환
-    @GetMapping("member/update")
+    @GetMapping("/member/update")
     public String myUpdate() { return "myUpdate.html";}
 
-    //
+    // 문제은행 페이지 반환
+    @GetMapping("/board/question")
+    public String question() { return "/board/question/list.html";}
+
+    // 질문/취업/튜토리얼 게시물 조회 페이지 반환
+    
+    // 문제은행 개별 게시물 조회 페이지 반환
+    @GetMapping("/board/view")
+    public String view() { return "/board/question/view.html";}
 }

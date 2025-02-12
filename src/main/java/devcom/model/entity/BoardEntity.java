@@ -26,11 +26,11 @@ public class BoardEntity extends BaseTime {
     private String bcontent;
 
     // 조회수
-    @Column
+    @Column(columnDefinition = "int default 1")
     private int bview;
 
     // 좋아요
-    @Column
+    @Column(columnDefinition = "int default 1")
     private int blike;
 
     // 작성자 fk
