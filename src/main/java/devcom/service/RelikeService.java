@@ -1,5 +1,7 @@
 package devcom.service;
 
+import devcom.model.entity.MemberEntity;
+import devcom.model.entity.RelikeEntity;
 import devcom.model.entity.ReplyEntity;
 import devcom.model.repository.MemberRepository;
 import devcom.model.repository.RelikeRepository;
@@ -12,11 +14,6 @@ import java.util.Map;
 
 @Service
 public class RelikeService {
-
-    @Autowired private ReplyRepository replyRepository;
-    @Autowired private RelikeRepository relikeRepository;
-
-
 
 
 
