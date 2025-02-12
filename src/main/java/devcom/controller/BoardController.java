@@ -32,8 +32,8 @@ public class BoardController {
 
     // 게시물 목록 조회 - 문제은행
     @GetMapping("/board/question.do")
-    public List<BoardDto> boardQuestion(){
-        return boardService.boardQuestion();
+    public List<BoardDto> boardQuestion(@RequestParam int page){
+        return boardService.boardQuestion(page);
     }
 
     // 게시물 목록 조회 - 전체

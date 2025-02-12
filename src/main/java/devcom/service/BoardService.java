@@ -12,6 +12,10 @@ import devcom.model.repository.CategoryRepository;
 import devcom.model.repository.MemberRepository;
 import devcom.model.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -81,8 +85,10 @@ public class BoardService {
     }
 
     // 게시물 목록 조회 - 문제은행
-    public List<BoardDto> boardQuestion() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
+    public List<BoardDto> boardQuestion(int page) {
+        // 페이징
+        Pageable pageable= PageRequest.of(page-1, 2, Sort.by(Sort.Direction.DESC, "bno"));
+        Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
 
         // 문제은행 카테고리만 dto로 변환
         List<BoardDto> boardDtoList = new ArrayList<>();

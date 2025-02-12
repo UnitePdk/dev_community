@@ -7,7 +7,7 @@ const findAll = () => {
   const tbody = document.querySelector("tbody");
   let html = "";
 
-  fetch("/board/question.do", option)
+  fetch(`/board/question.do?page=${1}`, option)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -15,7 +15,7 @@ const findAll = () => {
         html += `<tr>
                     <td> ${board.bno} </td>
                     <td> <a href="/board/view?bno=${board.bno}"> ${board.btitle} </a> </td>
-                    <td> ${board.mid} </td>
+                    <td> ${board.mname} </td>
                     <td> ${board.bview} </td>
                     <td> ${board.cdate} </td>
                 </tr>`;

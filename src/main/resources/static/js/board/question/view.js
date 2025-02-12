@@ -9,7 +9,7 @@ const onFind = () => {
       document.querySelector(".mname").innerHTML = data.mname;
       document.querySelector(".bview").innerHTML = data.bview;
       document.querySelector(".cdate").innerHTML = data.cdate;
-
+      document.querySelector(".cname").innerHTML = data.cname;
       document.querySelector(".btitle").innerHTML = data.btitle;
       document.querySelector(".bcontent").innerHTML = data.bcontent;
     })
