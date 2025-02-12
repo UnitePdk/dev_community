@@ -2,11 +2,11 @@
 const onFind = () => {
   const bno = new URL(location.href).searchParams.get("bno");
 
-  fetch(`/board/view.do?bno=${bno}`)
+  fetch(`/board/view.do?index=${bno}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      document.querySelector(".mid").innerHTML = data.mid;
+      document.querySelector(".mname").innerHTML = data.mname;
       document.querySelector(".bview").innerHTML = data.bview;
       document.querySelector(".cdate").innerHTML = data.cdate;
 
