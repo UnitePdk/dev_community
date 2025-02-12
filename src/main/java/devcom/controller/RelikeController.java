@@ -15,5 +15,4 @@ public class RelikeController {
 
     // 댓글 좋아요 추가
 
-
 }
