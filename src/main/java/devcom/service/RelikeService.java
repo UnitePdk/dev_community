@@ -15,6 +15,10 @@ import java.util.Map;
 @Service
 public class RelikeService {
 
+    @Autowired private RelikeRepository relikeRepository;
+    @Autowired private MemberRepository memberRepository;
+    @Autowired private ReplyRepository replyRepository;
+
 
 
 }
