@@ -2,6 +2,7 @@ package devcom.service;
 
 import devcom.model.dto.BoardDto;
 import devcom.model.dto.MemberDto;
+import devcom.model.dto.PageDto;
 import devcom.model.dto.ReplyDto;
 import devcom.model.entity.BoardEntity;
 import devcom.model.entity.CategoryEntity;
@@ -85,7 +86,7 @@ public class BoardService {
     }
 
     // 게시물 목록 조회 - 문제은행
-    public List<BoardDto> boardQuestion(int page) {
+    public PageDto boardQuestion(int page) {
         // 페이징
         Pageable pageable= PageRequest.of(page-1, 2, Sort.by(Sort.Direction.DESC, "bno"));
         Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
@@ -99,7 +100,21 @@ public class BoardService {
             }
         });
 
-        return boardDtoList;
+        // 전체 페이지 수
+        int totalPage=boardEntityList.getTotalPages();
+        // 전체 게시글 수
+        long totalCount=boardEntityList.getTotalElements();
+        // 버튼 개수
+        int btnSize=10;
+        // 시작 번호
+        int startBtn=((page-1)/btnSize)*btnSize+1;
+        // 끝 번호
+        int endBtn=startBtn+btnSize-1;
+        if(endBtn>=totalPage) endBtn=totalPage;
+
+        PageDto pageDto=PageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(boardDtoList).build();
+
+        return pageDto;
     }
 
     // // 게시물 목록 조회 - 전체
