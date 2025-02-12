@@ -1,0 +1,48 @@
+/* 글로벌 css */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  gap: 100px;
+}
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  width: 100%;
+  height: 100%;
+  padding: 20px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* 헤더 */
+header {
+  display: flex;
+  justify-content: space-between;
+}
+#header_right {
+  display: flex;
+  gap: 10px;
+}
+#header_right > span {
+  background-color: skyblue;
+}
+
+/* 메뉴 */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.menu {
+  background-color: skyblue;
+}
+.menu > a {
+  color: white;
+  font-size: 24px;
+}
