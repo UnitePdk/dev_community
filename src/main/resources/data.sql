@@ -1,8 +1,8 @@
-insert into member (mname, mid, mpwd, memail, mphone, mbirth, mimg, cdate, udate) values ("김이름", "asd","123","asd123@domain.com","010-1111-1111","2001-11-11","default.jpg", now(), now() );
-insert into member (mname, mid, mpwd, memail, mphone, mbirth, mimg, cdate, udate) values ("최이름", "qwe","456","qwe123@domain.com","010-2222-2222","2002-11-11","default.jpg" , now(), now());
-insert into member (mname, mid, mpwd, memail, mphone, mbirth, mimg, cdate, udate) values ("박이름", "zxc","789","zxc123@domain.com","010-3333-3333","2003-11-11","default.jpg" , now(), now());
-insert into member (mname, mid, mpwd, memail, mphone, mbirth, mimg, cdate, udate) values ("오이름", "rty","101","rty123@domain.com","010-4444-4444","2004-11-11","default.jpg" , now(), now());
-insert into member (mname, mid, mpwd, memail, mphone, mbirth, mimg, cdate, udate) values ("이이름", "fgh","112","fgh123@domain.com","010-5555-5555","2005-11-11","default.jpg" , now(), now());
+insert into member (mname, mid, mpwd, memail, mphone, mbirth, cdate, udate) values ("김이름", "asd","123","asd123@domain.com","010-1111-1111","2001-11-11", now(), now() );
+insert into member (mname, mid, mpwd, memail, mphone, mbirth, cdate, udate) values ("최이름", "qwe","456","qwe123@domain.com","010-2222-2222","2002-11-11", now(), now());
+insert into member (mname, mid, mpwd, memail, mphone, mbirth, cdate, udate) values ("박이름", "zxc","789","zxc123@domain.com","010-3333-3333","2003-11-11", now(), now());
+insert into member (mname, mid, mpwd, memail, mphone, mbirth, cdate, udate) values ("오이름", "rty","101","rty123@domain.com","010-4444-4444","2004-11-11", now(), now());
+insert into member (mname, mid, mpwd, memail, mphone, mbirth, cdate, udate) values ("이이름", "fgh","112","fgh123@domain.com","010-5555-5555","2005-11-11", now(), now());
 
 insert into category (cname) values ("질문");
 insert into category (cname) values ("대외/취업");
