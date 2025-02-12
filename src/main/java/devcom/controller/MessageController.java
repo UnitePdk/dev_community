@@ -20,13 +20,13 @@ public class MessageController {
         return ResponseEntity.ok(result);
     }
 
-//    // [2] 받은 메세지 조회
-//    @GetMapping("/message/receive/find.do") //
-//    public ResponseEntity<List<MessageDto>> findReceiveMessage(@RequestParam int receivermno){
-//        List<MessageDto> messages = messageService.getReceiveMessages(receivermno);
-//        return ResponseEntity.ok(messages);
-//    }
-//
+    // [2] 받은 메세지 조회
+    @GetMapping("/message/receive/find.do") //
+    public ResponseEntity<List<MessageDto>> findReceiveMessage(@RequestParam int receivermno){
+        List<MessageDto> messages = messageService.FindReceiverMessage(receivermno);
+        return ResponseEntity.ok(messages);
+    }
+
 //    // [3] 보낸 메세지 조회
 //    @GetMapping("/message/send/find.do")
 //    public ResponseEntity<List<MessageDto>> FindSendMessage(@RequestParam int mno) {

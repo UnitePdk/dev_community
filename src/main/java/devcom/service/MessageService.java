@@ -59,59 +59,85 @@ public class MessageService {
         }
     }
 
+//    // [2] 받은 메세지 조회
+//    @Transactional(readOnly = true)
+//    public List<MessageDto> getReceiveMessages(int mno) {
+//        // 1. 회원 찾기
+//        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
+//        List<MessageDto> list = new ArrayList<>();
+//
+//        if(memberOtp.isPresent()) {
+//            // 2. 받은 메세지 찾기
+//            List<MessageEntity> messageEntities = messageRepository.findByReceivermno(memberOtp.get());
+//            // 3. 엔티티 리스트를 Dto 리스트로 변환
+//            messageEntities.forEach(entity -> {MessageDto dto = entity.toDto();
+//            // 송신자와 수신자의 아이디 설정
+//            dto.setSendmid(entity.getSendermno().getMid());
+//            dto.setReceivermid(entity.getReceivermno().getMid());
+//            list.add(dto);
+//            });
+//        }
+//        return list;
+//    }
+
     // [2] 받은 메세지 조회
     @Transactional(readOnly = true)
-    public List<MessageDto> getReceiveMessages(int mno) {
+    public List<MessageDto> FindReceiverMessage(int mno) {
         // 1. 회원 찾기
-        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
+        Optional <MemberEntity> memberOtp = memberRepository.findById(mno);
         List<MessageDto> list = new ArrayList<>();
 
         if(memberOtp.isPresent()) {
             // 2. 받은 메세지 찾기
             List<MessageEntity> messageEntities = messageRepository.findByReceivermno(memberOtp.get());
-            // 3. 엔티티 리스트를 Dto 리스트로 변환
-            messageEntities.forEach(entity -> {MessageDto dto = entity.toDto();
-            // 송신자와 수신자의 아이디 설정
-            dto.setSendmid(entity.getSendermno().getMid());
-            dto.setReceivermid(entity.getReceivermno().getMid());
-            list.add(dto);
-            });
-        }
-        return list;
-    }
-
-    // [2] 받은 메세지 조회
-//    @Transactional(readOnly = true)
-//    public List<MessageDto> findReceiveMessage(int mno) {
-//        try {
-//            Optional<MessageEntity> memberOtp = memberRepository.findById(mno);
-//
-//            if(memberOtp)
-//        }
-//    }
-
-//
-    // [3] 보낸 메세지 조회
-    @Transactional(readOnly = true)
-    public List<MessageDto> getSendMessages(int mno) {
-        // 1. 회원 찾기
-        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
-        List<MessageDto> list = new ArrayList<>();
-
-        if(memberOtp.isPresent()) {
-            // 2. 보낸 메세지 찾기
-            List<MessageEntity> messageEntities = messageRepository.findBySendermno(memberOtp.get());
-            // 3. 엔티티 리스트를 Dto 리스트로 변환
+            // 3. 엔티티 리스트 dto 변환
             messageEntities.forEach(entity -> {
                 MessageDto dto = entity.toDto();
-                // 송신자와 수신자의 아이디 설정
-                dto.setSendmid(entity.getSendermno().getMid());
+                // 송신자와 수신자 아이디 설정 => 화면에서 회원 번호가 아닌 실제 회원 아이디를 표시하기 위함
+                dto.setSendmid(entity.getSendermno().getMid()); // 메시지 엔티티에서 송신자 엔티티를 가져와서 그 회원의 아이디를 가져옴
                 dto.setReceivermid(entity.getReceivermno().getMid());
+
                 list.add(dto);
             });
         }
         return list;
     }
+
+
+
+//    // [3] 보낸 메세지 조회
+//    @Transactional(readOnly = true)
+//    public List<MessageDto> getSendMessages(int mno) {
+//        // 1. 회원 찾기
+//        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
+//        List<MessageDto> list = new ArrayList<>();
+//
+//        if(memberOtp.isPresent()) {
+//            // 2. 보낸 메세지 찾기
+//            List<MessageEntity> messageEntities = messageRepository.findBySendermno(memberOtp.get());
+//            // 3. 엔티티 리스트를 Dto 리스트로 변환
+//            messageEntities.forEach(entity -> {
+//                MessageDto dto = entity.toDto();
+//                // 송신자와 수신자의 아이디 설정
+//                dto.setSendmid(entity.getSendermno().getMid());
+//                dto.setReceivermid(entity.getReceivermno().getMid());
+//                list.add(dto);
+//            });
+//        }
+//        return list;
+//    }
+
+    // [3] 보낸 메세지 조회
+//    @Transactional(readOnly = true)
+//    public List<MessageDto> FindSendMessages(int mno) {
+//        // 1. 회원 찾기
+//        Optional<MemberEntity> memberOtp = memberRepository.findById(mno);
+//        List<MessageDto> list = new ArrayList<>();
+//
+//        if(memberOtp.isPresent()) {
+//            // 2. 보낸 메세지 찾기
+//        }
+//    }
 
     // [4] 메세지 삭제
     public boolean deleteMessage(int meno, int mno) {
