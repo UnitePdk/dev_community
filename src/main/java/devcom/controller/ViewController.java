@@ -29,4 +29,10 @@ public class ViewController {
     // 문제은행 페이지 반환
     @GetMapping("/board/question")
     public String question() { return "/board/question/list.html";}
+
+    // 질문/취업/튜토리얼 게시물 조회 페이지 반환
+    
+    // 문제은행 개별 게시물 조회 페이지 반환
+    @GetMapping("/board/view")
+    public String view() { return "/board/question/view.html";}
 }

@@ -49,9 +49,9 @@ public class BoardController {
     }
 
     // 게시물 개별 조회
-    @GetMapping("/board/find.do")
-    public BoardDto boardFind(@RequestParam int index){
-        return boardService.boardFind(index);
+    @GetMapping("/board/view.do")
+    public BoardDto boardView(@RequestParam int index){
+        return boardService.boardView(index);
     }
 
     // 게시물 수정
