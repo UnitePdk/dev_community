@@ -21,6 +21,8 @@ public class BoardDto {
     private String cname;
     private int mno;
     private String mname;
+    private int lno;
+    private String lname;
     private String cdate;
 
     private List<ReplyDto> replyList;

@@ -16,7 +16,6 @@
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
   gap: 100px;
@@ -32,6 +31,7 @@ a {
   height: 100%;
   padding: 20px 10px;
   text-align: center;
+  text-decoration: none;
 }
 
 section {
