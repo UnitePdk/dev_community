@@ -23,7 +23,6 @@ public class ReplyDto {
     // dto --> entity 변환
     public ReplyEntity toEntity() {
         return ReplyEntity.builder()
-                .rno(this.rno)
                 .rcontent(this.rcontent)
                 .relike(this.relike)
                 .build();

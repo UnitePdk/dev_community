@@ -22,7 +22,7 @@ public class ReplyService {
     @Autowired MemberRepository memberRepository;
     @Autowired MemberService memberService;
 
-    // 특정 게시물에 댓글 목록 조회
+    // 모든 게시물에 댓글 목록 조회
     public List<ReplyDto> replyFindAll() {
         List<ReplyEntity> replyEntityList = replyRepository.findAll();
 
@@ -42,6 +42,7 @@ public class ReplyService {
 
         // 현재 로그인된 회원번호 조회
         MemberDto memberDto = memberService.info();
+        System.out.println("로그인 정보 : " + memberDto);
         if (memberDto == null) {
             return false;   // 로그인이 안된 경우 실패
         }
@@ -51,6 +52,7 @@ public class ReplyService {
 
         // 로그인된 회원 정보로 회원 엔티티 조회
         MemberEntity memberEntity = memberRepository.findById(memberDto.getMno()).orElse(null);
+        System.out.println("회원 엔티티 : " + memberEntity);
         if (memberEntity == null) {
             return false;   // 회원이 존재하지 않으면 실패
         }
@@ -58,6 +60,7 @@ public class ReplyService {
 
         // 입력한 bno를 조회해서 게시판 엔티티를 가져와서 대입
         BoardEntity boardEntity = boardRepository.findById(replyDto.getRno()).orElse(null);
+        System.out.println("게시글 엔티티 : " + boardEntity);
         if (boardEntity == null) {
             return false;   // 게시판이 존재하지 않으면 실패
         }

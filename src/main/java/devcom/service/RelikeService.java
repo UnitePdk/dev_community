@@ -29,11 +29,14 @@ public class RelikeService {
 
         // 현재 로그인된 회원 정보 가져오기
         MemberDto memberDto = memberService.info();
+        System.out.println("로그인된 회원 정보 : " + memberDto);
         if (memberDto == null) return false;
 
         // 회원 엔티티, 댓글 엔티티 조회
         MemberEntity memberEntity = memberRepository.findById(memberDto.getMno()).orElse(null);
         ReplyEntity replyEntity = replyRepository.findById(relikeDto.getRno()).orElse(null);
+        System.out.println("회원 엔티티 : " + memberEntity);
+        System.out.println("댓글 엔티티 : " + replyEntity);
         if (memberEntity == null || replyEntity == null) return false;
 
         // 이미 좋아요 눌렀는지 확인
@@ -43,7 +46,8 @@ public class RelikeService {
 
         // 좋아요 추가
         RelikeEntity relikeEntity = relikeDto.toEntity(memberEntity, replyEntity);
-        relikeRepository.save(relikeEntity);
+        RelikeEntity saved = relikeRepository.save(relikeEntity);
+        System.out.println("저장된 좋아요 엔티티 : " + saved);
         return true;
 
     }
