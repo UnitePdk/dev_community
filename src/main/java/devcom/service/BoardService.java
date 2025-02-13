@@ -2,6 +2,8 @@ package devcom.service;
 
 import devcom.model.dto.BoardDto;
 import devcom.model.dto.MemberDto;
+import devcom.model.dto.PageDto;
+import devcom.model.dto.ReplyDto;
 import devcom.model.entity.BoardEntity;
 import devcom.model.entity.CategoryEntity;
 import devcom.model.entity.MemberEntity;
@@ -9,7 +11,12 @@ import devcom.model.entity.ReplyEntity;
 import devcom.model.repository.BoardRepository;
 import devcom.model.repository.CategoryRepository;
 import devcom.model.repository.MemberRepository;
+import devcom.model.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +34,8 @@ public class BoardService {
     BoardRepository boardRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    ReplyRepository replyRepository;
 
     // 게시물 목록 조회 - 질문
     public List<BoardDto> boardAsk() {
@@ -77,8 +86,11 @@ public class BoardService {
     }
 
     // 게시물 목록 조회 - 문제은행
-    public List<BoardDto> boardQuestion() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
+    public PageDto boardQuestion(int page, int language, String key, String keyword) {
+        // 페이징
+        Pageable pageable= PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "bno"));
+        // Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
+        Page<BoardEntity> boardEntityList=boardRepository.findBySearch(4, language, key, keyword, pageable);
 
         // 문제은행 카테고리만 dto로 변환
         List<BoardDto> boardDtoList = new ArrayList<>();
@@ -88,8 +100,24 @@ public class BoardService {
                 boardDtoList.add(boardDto);
             }
         });
+        
+        // 이 카테고리만 인식해야함
 
-        return boardDtoList;
+        // 전체 페이지 수
+        int totalPage=boardEntityList.getTotalPages();
+        // 전체 게시글 수
+        long totalCount=boardEntityList.getTotalElements();
+        // 버튼 개수
+        int btnSize=10;
+        // 시작 번호
+        int startBtn=((page-1)/btnSize)*btnSize+1;
+        // 끝 번호
+        int endBtn=startBtn+btnSize-1;
+        if(endBtn>=totalPage) endBtn=totalPage;
+
+        PageDto pageDto=PageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(boardDtoList).build();
+
+        return pageDto;
     }
 
     // // 게시물 목록 조회 - 전체
@@ -126,46 +154,28 @@ public class BoardService {
         return saveBoardEntity.getBno() > 0;
     }
 
-//    // 게시물 개별 조회
-//    public BoardDto boardView(int index) {
-//        // (1) 조회할 특정 게시물의 번호를 매개변수로 받는다.  int bno
-//        // (2) 조회할 특정 게시물의 번호의 엔티티를 조회한다. .findById() 메소드는 반환타입이 Optional 이다. 조회된 엔티티 여부 메소드 제공한다. .isPresent()
-//        Optional< BoardEntity > optional = boardRepository.findById( index );
-//        // (3) 만약에 조회된 엔티티가 있으면 true / false
-//        if( optional.isPresent() ){
-//            // (4) optional 에서 엔티티 꺼내기. .get()
-//            BoardEntity boardEntity = optional.get();
-//            // (5) 엔티티를 dto 변환
-//            BoardDto boardDto = boardEntity.toDto();
-//            // * 현재 게시물의 댓글 리스트 조회
-//            // 1. 모든 게시물 댓글 조회한다.
-//            List<ReplyEntity> replyEntityList = replyRepository.findAll();
-//            // 2. 모든 댓글을 DTO/MAP 로 변환한 객체들을 저장할 리스트 선언 . --> ReplyDto 대신 MAP 컬렉션 이용한 방법
-//            // List 컬렉션 : [ 값, 값 , 값 ]   vs  Map 컬렉션 : { key : value , key : value , key : value }
-//            List<Map<String, String> > replylist = new ArrayList<>();
-//            // 3. 엔티티를 MAP 로 변환 하기 위한 엔티티 리스트를 반복문
-//            replyEntityList.forEach( (reply) ->{
-//                // * 만약에 현재 조회중인 게시물번호 와 댓글리스트내 반복중인 댓글의 게시물번호 와 같다면
-//                if( reply.getBoardEntity().getBno() == index ){
-//                    // 4. map 객체 선언
-//                    Map<String , String > map = new HashMap<>();
-//                    // 5. map 객체에 하나씩 key:value (엔트리) 으로 저장한다.
-//                    map.put( "rno" , reply.getRno()+"" );       // 숫자타입 +"" =>문자타입 변환
-//                    map.put( "rcontent" , reply.getRcontent() );
-//                    map.put( "cdate" , reply.getCdate().toLocalDate().toString() ); // 날짜와시간 중에 날짜만 추출
-//                    map.put( "mid" , reply.getMemberEntity().getMid() ); // 댓글 작성자 아이디
-//                    map.put( "mimg" , reply.getMemberEntity().getMimg() ); // 댓글 작성자 프로필
-//                    // 6. map를 리스트에 담는다.
-//                    replylist.add( map );
-//                }
-//            });
-//            // 7. 반복문 종료된 후 boardDto에 댓글리스트 담기.
-//            boardDto.setReplylist( replylist );
-//            // (6) dto 결과 반환
-//            return boardDto;
-//        }
-//        return null; // 조회 결과 엔티티가 없으면 null 반환
-//    }
+    // 게시물 개별 조회
+    public BoardDto boardView(int index) {
+        // Optional로 변환하여 isPresent 검사한 후 dto로 변환
+        Optional< BoardEntity > optional = boardRepository.findById( index );
+        if( optional.isPresent() ){
+            BoardEntity boardEntity = optional.get();
+            BoardDto boardDto = boardEntity.toDto();
+
+            // 모든 데이터 조회
+            List<ReplyEntity> replyEntityList = replyRepository.findAll();
+            List<ReplyDto> replyList = new ArrayList<>();
+            replyEntityList.forEach( (reply) ->{
+                if( reply.getBoardEntity().getBno() == index ){
+                    ReplyDto replyDto = reply.toDto();
+                    replyList.add( replyDto );
+                }
+            }); // foreach end
+            boardDto.setReplyList( replyList );
+            return boardDto;
+        } // if end
+        return null; // 조회 결과 엔티티가 없으면 null 반환
+    }
 
     // 게시물 수정
     public boolean boardUpdate(BoardDto boardDto) {

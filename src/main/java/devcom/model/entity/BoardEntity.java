@@ -43,6 +43,11 @@ public class BoardEntity extends BaseTime {
     @JoinColumn(name = "cno")
     private CategoryEntity categoryEntity;
 
+    // 언어 fk
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lno")
+    private LanguageEntity languageEntity;
+
     public BoardDto toDto() {
         return BoardDto.builder()
                 .bno(this.bno)
@@ -50,8 +55,11 @@ public class BoardEntity extends BaseTime {
                 .bcontent(this.bcontent)
                 .bview(this.bview)
                 .mno(this.memberEntity.getMno())
+                .mname(this.memberEntity.getMname())
                 .cno(this.categoryEntity.getCno())
                 .cname(this.categoryEntity.getCname())
+                .lno(this.languageEntity.getLno())
+                .lname(this.languageEntity.getLname())
                 .cdate(this.getCdate().toString())
                 .build();
     }
