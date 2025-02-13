@@ -9,11 +9,23 @@ insert into category (cname) values ("대외/취업");
 insert into category (cname) values ("튜토리얼");
 insert into category (cname) values ("문제은행");
 
-insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno) values ("Rest API 질문", "이거 어떻게 해요?", 23, 3, now(), now(), 1, 1);
-insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno) values ("부평 백엔드 부트캠프 모집", "2025년 상반기 부트캠프 개설!", 45, 6, now(), now(), 2, 2);
-insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno) values ("스프링부트 입문 가이드", "start.spring.io 접속", 687, 31, now(), now(), 3, 3);
-insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno) values ("가위바위보 게임", "가위바위보 프로그램을 만드시오", 56, 21, now(), now(), 1, 4);
-insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno) values ("이거 왜 안됨?", "아래가 제 코드인데", 17, 3, now(), now(), 4, 1);
+INSERT INTO language (lname) VALUES ("C/C++");
+INSERT INTO language (lname) VALUES ("C#");
+INSERT INTO language (lname) VALUES ("Java");
+INSERT INTO language (lname) VALUES ("Python");
+INSERT INTO language (lname) VALUES ("Html/Css");
+INSERT INTO language (lname) VALUES ("JavaScript");
+INSERT INTO language (lname) VALUES ("TypeScript");
+INSERT INTO language (lname) VALUES ("Kotlin");
+INSERT INTO language (lname) VALUES ("Swift");
+INSERT INTO language (lname) VALUES ("Go");
+INSERT INTO language (lname) VALUES ("Rust");
+
+insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno, lno) values ("Rest API 질문", "이거 어떻게 해요?", 23, 3, now(), now(), 1, 1, 1);
+insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno, lno) values ("부평 백엔드 부트캠프 모집", "2025년 상반기 부트캠프 개설!", 45, 6, now(), now(), 2, 2, 1);
+insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno, lno) values ("스프링부트 입문 가이드", "start.spring.io 접속", 687, 31, now(), now(), 3, 3, 1);
+insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno, lno) values ("가위바위보 게임", "가위바위보 프로그램을 만드시오", 56, 21, now(), now(), 1, 4, 1);
+insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno, lno) values ("이거 왜 안됨?", "아래가 제 코드인데", 17, 3, now(), now(), 4, 1, 1);
 
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("좋은 정보 감사합니다!", 12, now(), now(), 4, 1);
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("부트캠프 참여 후기 궁금합니다.", 5, now(), now(), 1, 2);

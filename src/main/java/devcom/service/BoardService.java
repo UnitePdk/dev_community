@@ -86,10 +86,11 @@ public class BoardService {
     }
 
     // 게시물 목록 조회 - 문제은행
-    public PageDto boardQuestion(int page) {
+    public PageDto boardQuestion(int page, int language, String key, String keyword) {
         // 페이징
-        Pageable pageable= PageRequest.of(page-1, 2, Sort.by(Sort.Direction.DESC, "bno"));
-        Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
+        Pageable pageable= PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "bno"));
+        // Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
+        Page<BoardEntity> boardEntityList=boardRepository.findBySearch(4, language, key, keyword, pageable);
 
         // 문제은행 카테고리만 dto로 변환
         List<BoardDto> boardDtoList = new ArrayList<>();
@@ -99,6 +100,8 @@ public class BoardService {
                 boardDtoList.add(boardDto);
             }
         });
+        
+        // 이 카테고리만 인식해야함
 
         // 전체 페이지 수
         int totalPage=boardEntityList.getTotalPages();
