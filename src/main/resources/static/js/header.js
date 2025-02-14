@@ -1,5 +1,4 @@
 // [1] 로그인 정보 요청
-// 커밋 확인용
 const getLoginId = () => {
     // fetch option
     const option = {method : 'GET',}
