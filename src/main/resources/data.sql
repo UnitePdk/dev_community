@@ -33,3 +33,9 @@ insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("부트캠�
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("에러가 왜 뜨냐", 26, now(), now(), 2, 4);
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("이직하고 싶습니다..", 33, now(), now(), 4, 2);
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("자격증은 어떻게 준비하셨나요?", 8, now(), now(), 3, 1);
+
+INSERT INTO message (receivermno, sendermno, mecontent, metitle, deleted_by_receiver, deleted_by_sender)VALUE(2, 1, '안녕하세요! 오랜만이에요.', '인사', 0, 0);
+INSERT INTO message (receivermno, sendermno, mecontent, metitle, deleted_by_receiver, deleted_by_sender)VALUE(3, 1, '이번 프로젝트 관련해서 논의가 필요합니다.', '프로젝트 논의', 0, 0);
+INSERT INTO message (receivermno, sendermno, mecontent, metitle, deleted_by_receiver, deleted_by_sender)VALUE(1, 2, '네, 언제 시간 괜찮으세요?', '답장', 0, 0);
+INSERT INTO message (receivermno, sendermno, mecontent, metitle, deleted_by_receiver, deleted_by_sender)VALUE(4, 3, '파일을 확인해 주세요.', '파일 전달', 0, 0);
+INSERT INTO message (receivermno, sendermno, mecontent, metitle, deleted_by_receiver, deleted_by_sender)VALUE(2, 4, '내일 회의 참석 가능하신가요?', '회의 참석 여부', 0, 0);
