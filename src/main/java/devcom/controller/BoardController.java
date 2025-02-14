@@ -33,8 +33,8 @@ public class BoardController {
 
     // 게시물 목록 조회 - 문제은행
     @GetMapping("/board/findall.do")
-    public PageDto boardFindAll(@RequestParam int cno, @RequestParam int page, @RequestParam int language, @RequestParam String key, @RequestParam String keyword){
-        return boardService.boardFindAll(cno, page, language, key, keyword);
+    public PageDto boardFindAll(@RequestParam int cno, @RequestParam int page, @RequestParam int lno, @RequestParam String key, @RequestParam String keyword){
+        return boardService.boardFindAll(cno, page, lno, key, keyword);
     }
 
     // 게시물 쓰기

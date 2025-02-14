@@ -34,6 +34,23 @@ public class MessageEntity {
     @OnDelete(action = OnDeleteAction.NO_ACTION) // 송신&수신자 삭제시 같이 삭제
     private MemberEntity receivermno; // 수신자
 
+    // 추가
+    @Column(nullable = false)
+    private boolean deletedBySender;
+    @Column(nullable = false)
+    private boolean deletedByReceiver;
+
+    public void deleteBySender() {
+        this.deletedBySender = true;
+    }
+
+    public void deleteByReceiver() {
+        this.deletedByReceiver = true;
+    }
+
+    public boolean isDeleted() {
+        return isDeletedBySender() && isDeletedByReceiver();
+    }
 
     // entity -> dto
     public MessageDto toDto() {

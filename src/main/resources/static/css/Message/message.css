@@ -1,0 +1,16 @@
+#header_right {
+  display: flex;
+  gap: 10px;
+}
+#header_right > span {
+  background-color: skyblue;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rightbox {
+  display: flex;
+}
