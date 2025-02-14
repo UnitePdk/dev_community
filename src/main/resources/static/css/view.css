@@ -11,12 +11,3 @@
   border: 1px solid black;
 }
 
-.btn {
-  margin: 5px;
-}
-
-.replyContent {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-}
