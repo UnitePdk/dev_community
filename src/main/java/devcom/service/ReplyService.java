@@ -8,9 +8,11 @@ import devcom.model.entity.ReplyEntity;
 import devcom.model.repository.BoardRepository;
 import devcom.model.repository.MemberRepository;
 import devcom.model.repository.ReplyRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,24 +49,18 @@ public class ReplyService {
             return false;   // 로그인이 안된 경우 실패
         }
 
-        // replyDto --> entity 변환
-        ReplyEntity replyEntity = replyDto.toEntity();
-
-        // 로그인된 회원 정보로 회원 엔티티 조회
-        MemberEntity memberEntity = memberRepository.findById(memberDto.getMno()).orElse(null);
+        // 회원 엔티티 조회
+        MemberEntity memberEntity = memberRepository.findById(memberDto.getMno())
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
         System.out.println("회원 엔티티 : " + memberEntity);
-        if (memberEntity == null) {
-            return false;   // 회원이 존재하지 않으면 실패
-        }
-        replyEntity.setMemberEntity(memberEntity);
 
-        // 입력한 bno를 조회해서 게시판 엔티티를 가져와서 대입
-        BoardEntity boardEntity = boardRepository.findById(replyDto.getRno()).orElse(null);
+        // 입력한 bno를 이용해 게시판 엔티티 조회
+        BoardEntity boardEntity = boardRepository.findById(replyDto.getBno())
+                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
         System.out.println("게시글 엔티티 : " + boardEntity);
-        if (boardEntity == null) {
-            return false;   // 게시판이 존재하지 않으면 실패
-        }
-        replyEntity.setBoardEntity(boardEntity);
+
+        // replyDto → replyEntity 변환 (MemberEntity, BoardEntity 포함)
+        ReplyEntity replyEntity = replyDto.toEntity(memberEntity, boardEntity);
 
         // DB에 저장
         ReplyEntity saveReplyEntity = replyRepository.save(replyEntity);
@@ -74,13 +70,57 @@ public class ReplyService {
     }
 
     // 댓글 수정
-    public boolean replyUpdate(ReplyDto replyDto) {
-        return false;
+    public boolean replyUpdate(ReplyDto replyDto, HttpSession session) {
+        // 로그인된 사용자 정보 확인
+        MemberDto memberDto = (MemberDto) session.getAttribute("loginUser");
+        System.out.println("로그인 정보 : " + memberDto);
+        if (memberDto == null) {
+            return false;   // 로그인이 안되어있음
+        }
+
+        // 기존 댓글 찾기
+        ReplyEntity replyEntity = replyRepository.findById(replyDto.getRno()).orElse(null);
+        System.out.println("기존 댓글 존재 : " + replyEntity);
+        if (replyEntity == null) {
+            return false;   // 본인이 작성한 댓글인지 확인
+        }
+
+        // 댓글 수정
+        replyEntity.setRcontent((replyDto.getRcontent()));
+
+        // DB 저장
+        replyRepository.save(replyEntity);
+        
+        return true;    // 수정 성공
     }
 
     // 댓글 삭제
-    public boolean replyDelete(int rno) {
-        return false;
+    public boolean replyDelete(int rno, HttpSession session) {
+
+        // 로그인된 사용자 확인
+        MemberDto memberDto = (MemberDto) session.getAttribute("loginUser");
+        System.out.println("로그인 정보 : " + memberDto);
+        if (memberDto == null) {
+            return false;   // 로그인 안되어 있으면 실패
+        }
+
+        // 기존 댓글 찾기
+        ReplyEntity replyEntity = replyRepository.findById(rno).orElse(null);
+        System.out.println("기존 댓글 존재 : " + replyEntity);
+        if (replyEntity == null) {
+            return false;   // 본인이 작성한 댓글인지 확인
+        }
+
+        // 댓글 작성자 = 로그인 사용자가 같은지
+        if (replyEntity.getMemberEntity().getMno() != memberDto.getMno()) {
+            return false;   // 본인이 작성한 댓글이 아니면 삭제불가
+        }
+
+        // 댓글 삭제
+        replyRepository.delete(replyEntity);
+        
+        return true;    // 삭제 성공
+
     }
 
 }

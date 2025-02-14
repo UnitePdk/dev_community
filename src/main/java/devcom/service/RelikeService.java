@@ -45,9 +45,12 @@ public class RelikeService {
         }
 
         // 좋아요 추가
-        RelikeEntity relikeEntity = relikeDto.toEntity(memberEntity, replyEntity);
-        RelikeEntity saved = relikeRepository.save(relikeEntity);
-        System.out.println("저장된 좋아요 엔티티 : " + saved);
+        RelikeEntity relikeEntity = new RelikeEntity();
+        relikeEntity.setMemberEntity(memberEntity);
+        relikeEntity.setReplyEntity(replyEntity);
+        relikeRepository.save(relikeEntity);
+        System.out.println("저장된 좋아요 엔티티 : " + relikeEntity);
+
         return true;
 
     }
@@ -64,7 +67,7 @@ public class RelikeService {
         Optional<MemberEntity> memberEntityOpt = memberRepository.findById(memberDto.getMno());
         Optional<ReplyEntity> replyEntityOpt = replyRepository.findById(relikeDto.getRno());
 
-        if (!memberEntityOpt.isPresent() || !replyEntityOpt.isPresent()) {
+        if (!memberEntityOpt.isEmpty() || !replyEntityOpt.isEmpty()) {
             return false;   // 하나라도 없으면 false 반환
         }
 

@@ -2,6 +2,7 @@ package devcom.controller;
 
 import devcom.model.dto.ReplyDto;
 import devcom.service.ReplyService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +27,14 @@ public class ReplyController {
 
     // 댓글 수정
     @PutMapping("/reply/update.do")
-    public boolean replyUpdate(@RequestBody ReplyDto replyDto) {
-        return replyService.replyUpdate(replyDto);
+    public boolean replyUpdate(@RequestBody ReplyDto replyDto, HttpSession session) {
+        return replyService.replyUpdate(replyDto, session);
     }
 
     // 댓글 삭제
     @DeleteMapping("/reply/delete.do")
-    public boolean replyDelete(@RequestParam int rno) {
-        return replyService.replyDelete(rno);
+    public boolean replyDelete(@RequestParam int rno, HttpSession session) {
+        return replyService.replyDelete(rno, session);
     }
 
 }

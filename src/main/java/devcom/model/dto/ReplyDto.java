@@ -1,5 +1,7 @@
 package devcom.model.dto;
 
+import devcom.model.entity.BoardEntity;
+import devcom.model.entity.MemberEntity;
 import devcom.model.entity.ReplyEntity;
 import lombok.*;
 
@@ -21,10 +23,12 @@ public class ReplyDto {
 
 
     // dto --> entity 변환
-    public ReplyEntity toEntity() {
+    public ReplyEntity toEntity(MemberEntity memberEntity, BoardEntity boardEntity) {
         return ReplyEntity.builder()
                 .rcontent(this.rcontent)
                 .relike(this.relike)
+                .memberEntity(memberEntity)
+                .boardEntity(boardEntity)
                 .build();
     }
     

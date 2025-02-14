@@ -46,6 +46,7 @@ public class ReplyEntity extends BaseTime {
                 .rcontent(this.rcontent)
                 .relike(this.relike)
                 .cdate(this.getCdate().toString())
+                .udate(this.getUdate().toString())
                 .mno(this.memberEntity.getMno())
                 .bno(this.boardEntity.getBno())
                 .build();
