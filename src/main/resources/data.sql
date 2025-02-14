@@ -20,6 +20,7 @@ INSERT INTO language (lname) VALUES ("Kotlin");
 INSERT INTO language (lname) VALUES ("Swift");
 INSERT INTO language (lname) VALUES ("Go");
 INSERT INTO language (lname) VALUES ("Rust");
+INSERT INTO language (lname) VALUES ("기타");
 
 insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno, lno) values ("Rest API 질문", "이거 어떻게 해요?", 23, 3, now(), now(), 1, 1, 1);
 insert into board (btitle, bcontent, bview, blike, cdate, udate, mno, cno, lno) values ("부평 백엔드 부트캠프 모집", "2025년 상반기 부트캠프 개설!", 45, 6, now(), now(), 2, 2, 1);

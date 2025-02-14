@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="/js/board/question/list.js" defer></script>
+    <link rel="stylesheet" href="/css/list.css" />
+    <script src="/js/board/list.js" defer></script>
+    <script src="/js/board/search.js" defer></script>
   </head>
   <body>
     <div class="container" data-cno="1">
@@ -27,6 +29,8 @@
       <nav aria-label="Page navigation">
         <ul class="pagination pagebox"></ul>
       </nav>
+
+      <div th:replace="~{ /board/search.html :: search }"></div>
     </div>
   </body>
 </html>

@@ -1,0 +1,39 @@
+.boardList {
+  display: flex;
+  gap: 50px;
+}
+.list_main {
+  width: 80%;
+}
+.list_right {
+  width: 20%;
+}
+
+.searchBox {
+  display: flex;
+  gap: 5px;
+}
+.langBox {
+  top: 200px;
+  position: fixed;
+  background-color: rgb(127, 175, 194);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+}
+
+.lang {
+  text-align: center;
+  height: 50px;
+  border: 1px solid black;
+  font-size: 14px;
+  background-color: skyblue;
+}
+
+.langTop {
+  grid-area: 1 / 1 / 2 / 3;
+  font-size: 18px;
+}

@@ -38,11 +38,15 @@ public class BoardService {
     ReplyRepository replyRepository;
 
     // 게시물 목록 조회
-    public PageDto boardFindAll(int cno, int page, int language, String key, String keyword) {
+    public PageDto boardFindAll(int cno, int page, int lno, String key, String keyword) {
         // 페이징
         Pageable pageable= PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "bno"));
-        // Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
-        Page<BoardEntity> boardEntityList=boardRepository.findBySearch(cno, language, key, keyword, pageable);
+        Page<BoardEntity> boardEntityList;
+        if(lno==-1){
+            boardEntityList=boardRepository.findBySearch(cno, key, keyword, pageable);
+        } else{
+            boardEntityList=boardRepository.findBySearch(cno, lno, key, keyword, pageable);
+        }
 
         // 문제은행 카테고리만 dto로 변환
         List<BoardDto> boardDtoList = new ArrayList<>();
