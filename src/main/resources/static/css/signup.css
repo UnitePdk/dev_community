@@ -1,3 +1,17 @@
+/* 웹 폰트 */
+@font-face {
+  font-family: "SBAggroB";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 모든 폰트를 웹 폰트로 변경 */
+* {
+  font-family: "SBAggroB";
+}
+
 body {
     background: #eee !important;
     margin: 0;
@@ -35,7 +49,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px; /* 인풋 박스 라운딩 */
     box-sizing: border-box;
-}
 
 button {
     width: 100%;
