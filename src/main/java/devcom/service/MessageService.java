@@ -189,6 +189,11 @@ public class MessageService {
     @Transactional
     public boolean deleteSendMessage(int meno, int mno) {
         // 1. 로그인 상태 확인
+        MemberDto loginDto = memberService.info();
+        if(loginDto == null || loginDto.getMno() != mno) {
+            System.out.println("보낸 메세지 삭제 실패: 로그인 필요 또는 권한 없음");
+            return false;
+        }
         System.out.println("[보낸 메세지 삭제] meno: " + meno + ", mno: " + mno);
         try {
             Optional<MessageEntity> messageOtp = messageRepository.findById(meno);
@@ -223,6 +228,14 @@ public class MessageService {
     // [5] 받은 메세지 삭제
     @Transactional
     public boolean deleteReceiveMessage(int meno, int mno) {
+        // 1. 로그인 상태 확인
+        MemberDto loginDto = memberService.info();
+        if(loginDto == null || loginDto.getMno() != mno) {
+            System.out.println("받은 메세지 삭제 실패: 로그인 필요 또는 권한 없음");
+            return false;
+        }
+
+        // 기존
         System.out.println("[받은 메세지 삭제] meno: " + meno + ", mno: " + mno);
         try {
             Optional<MessageEntity> messageOpt = messageRepository.findById(meno);
@@ -233,10 +246,6 @@ public class MessageService {
 
                 // 수신자만 삭제 가능
                 if(message.getReceivermno().getMno() == mno) {
-                    // 메세지 엔티티만 삭제
-                    //messageRepository.deleteById(meno);
-
-                    // 추가
                     message.deleteByReceiver();
                     messageRepository.save(message); // 상태 업데이트
                     System.out.println("받은 메세지 삭제 성공");
