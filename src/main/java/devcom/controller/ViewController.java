@@ -27,6 +27,19 @@ public class ViewController {
     public String Update() { return "/member/update.html";}
 
     // 문제은행 페이지 반환
+    @GetMapping("/board/ask")
+    public String ask() { return "/board/ask/list.html";}
+
+    // 문제은행 페이지 반환
+    @GetMapping("/board/advertise")
+    public String advertise() { return "/board/advertise/list.html";}
+
+    // 문제은행 페이지 반환
+    @GetMapping("/board/tutorial")
+    public String tutorial() { return "/board/tutorial/list.html";}
+
+
+    // 문제은행 페이지 반환
     @GetMapping("/board/question")
     public String question() { return "/board/question/list.html";}
 

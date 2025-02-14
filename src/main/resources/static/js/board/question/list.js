@@ -3,6 +3,9 @@ const findAll = () => {
   let page = new URL(location.href).searchParams.get("page");
   if (page == null) page = 1;
 
+  let cno = document.querySelector(".container").dataset.cno;
+
+  // 샘플 데이터
   const language = 1;
 
   const option = { method: "GET" };
@@ -11,7 +14,7 @@ const findAll = () => {
   let html = "";
 
   fetch(
-    `/board/findall.do?cno=4&page=${page}&language=${language}&key&keyword`,
+    `/board/findall.do?cno=${cno}&page=${page}&language=${language}&key&keyword`,
     option
   )
     .then((response) => response.json())
