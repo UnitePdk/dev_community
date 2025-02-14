@@ -11,7 +11,7 @@ const findAll = () => {
   let html = "";
 
   fetch(
-    `/board/question.do?page=${page}&language=${language}&key&keyword`,
+    `/board/findall.do?cno=4&page=${page}&language=${language}&key&keyword`,
     option
   )
     .then((response) => response.json())
