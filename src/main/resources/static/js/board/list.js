@@ -82,6 +82,12 @@ const onSearch = () => {
   location.href = `?cno=${cno}&page=1&lno=${lno}&key=${key}&keyword=${keyword}`;
 };
 
+// 엔터 키로 검색
+const keywordEnter = document.querySelector(".keyword");
+keywordEnter.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") onSearch();
+});
+
 // 언어 선택
 const selectLang = (lno) => {
   const cno = document.querySelector(".container").dataset.cno;
