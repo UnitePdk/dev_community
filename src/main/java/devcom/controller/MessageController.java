@@ -26,13 +26,13 @@ public class MessageController {
         List<MessageDto> messages = messageService.FindReceiverMessage(receivermno);
         return ResponseEntity.ok(messages);
     }
-
-//    // [3] 보낸 메세지 조회
-//    @GetMapping("/message/send/find.do")
-//    public ResponseEntity<List<MessageDto>> FindSendMessage(@RequestParam int mno) {
-//        List<MessageDto> messages = messageService.getSendMessages(mno);
-//        return ResponseEntity.ok(messages);
-//    }
+//
+    // [3] 보낸 메세지 조회
+    @GetMapping("/message/send/find.do")
+    public ResponseEntity<List<MessageDto>> FindSendMessage(@RequestParam int sendermno) {
+        List<MessageDto> messages = messageService.FindSendMessage(sendermno);
+        return ResponseEntity.ok(messages);
+    }
 
 
 //    // 메세지 삭제
@@ -59,8 +59,13 @@ public class MessageController {
 
     // [5] 받은 메세지 삭제
     @DeleteMapping("/message/receiver/delete.do")
-    public boolean deleteReceiveMessage(@RequestParam int meno, @RequestParam int mno) {
-        return messageService.deleteReceivedMessage(meno, mno);
+    public ResponseEntity<Boolean> deleteReceiveMessage(@RequestParam int meno, @RequestParam int mno) {
+        boolean result = messageService.deleteReceiveMessage(meno, mno);
+        if(result) {
+            return ResponseEntity.ok(true);
+        } else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+        }
     }
 
 

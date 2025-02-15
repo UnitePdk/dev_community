@@ -1,0 +1,14 @@
+<div th:fragment="search" class="searchBox">
+  <div>
+    <select class="form-select key">
+      <option value="btitle">제목</option>
+      <option value="bcontent">내용</option>
+    </select>
+  </div>
+
+  <div>
+    <input type="text" class="form-control keyword" />
+  </div>
+
+  <button type="button" class="searchButton" onclick="onSearch()">검색</button>
+</div>

@@ -37,69 +37,23 @@ public class BoardService {
     @Autowired
     ReplyRepository replyRepository;
 
-    // 게시물 목록 조회 - 질문
-    public List<BoardDto> boardAsk() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-
-        // 질문 카테고리만 dto로 변환
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        boardEntityList.forEach(entity -> {
-            if (entity.getCategoryEntity().getCno() == 1) {
-                BoardDto boardDto = entity.toDto();
-                boardDtoList.add(boardDto);
-            }
-        });
-
-        return boardDtoList;
-    }
-
-    // 게시물 목록 조회 - 대외/홍보
-    public List<BoardDto> boardAdvertise() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-
-        // 대외/홍보 카테고리만 dto로 변환
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        boardEntityList.forEach(entity -> {
-            if (entity.getCategoryEntity().getCno() == 2) {
-                BoardDto boardDto = entity.toDto();
-                boardDtoList.add(boardDto);
-            }
-        });
-
-        return boardDtoList;
-    }
-
-    // 게시물 목록 조회 - 튜토리얼
-    public List<BoardDto> boardTutorial() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-
-        // 튜토리얼 카테고리만 dto로 변환
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        boardEntityList.forEach(entity -> {
-            if (entity.getCategoryEntity().getCno() == 3) {
-                BoardDto boardDto = entity.toDto();
-                boardDtoList.add(boardDto);
-            }
-        });
-
-        return boardDtoList;
-    }
-
-    // 게시물 목록 조회 - 문제은행
-    public PageDto boardQuestion(int page) {
+    // 게시물 목록 조회
+    public PageDto boardFindAll(int cno, int page, int lno, String key, String keyword) {
         // 페이징
-        Pageable pageable= PageRequest.of(page-1, 2, Sort.by(Sort.Direction.DESC, "bno"));
-        Page<BoardEntity> boardEntityList=boardRepository.findAll(pageable);
+        Pageable pageable= PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "bno"));
+        Page<BoardEntity> boardEntityList;
+        if(lno==-1){
+            boardEntityList=boardRepository.findBySearch(cno, key, keyword, pageable);
+        } else{
+            boardEntityList=boardRepository.findBySearch(cno, lno, key, keyword, pageable);
+        }
 
         // 문제은행 카테고리만 dto로 변환
         List<BoardDto> boardDtoList = new ArrayList<>();
         boardEntityList.forEach(entity -> {
-            if (entity.getCategoryEntity().getCno() == 4) {
                 BoardDto boardDto = entity.toDto();
                 boardDtoList.add(boardDto);
-            }
         });
-
         // 전체 페이지 수
         int totalPage=boardEntityList.getTotalPages();
         // 전체 게시글 수
@@ -115,20 +69,6 @@ public class BoardService {
         PageDto pageDto=PageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(boardDtoList).build();
 
         return pageDto;
-    }
-
-    // // 게시물 목록 조회 - 전체
-    public List<BoardDto> boardFindAll() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-
-        // 모든 엔티티를 dto로 변환
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        boardEntityList.forEach(entity -> {
-            BoardDto boardDto = entity.toDto();
-            boardDtoList.add(boardDto);
-        });
-
-        return boardDtoList;
     }
 
     // 게시물 쓰기

@@ -4,6 +4,8 @@ import devcom.model.dto.BoardDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Setter
 @ToString
@@ -43,7 +45,17 @@ public class BoardEntity extends BaseTime {
     @JoinColumn(name = "cno")
     private CategoryEntity categoryEntity;
 
+    // 언어 fk
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lno")
+    private LanguageEntity languageEntity;
+
     public BoardDto toDto() {
+
+        // ✅ yyyy-MM-dd HH:mm 포맷 설정
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formatCdate = this.getCdate().format(format);
+
         return BoardDto.builder()
                 .bno(this.bno)
                 .btitle(this.btitle)
@@ -53,7 +65,9 @@ public class BoardEntity extends BaseTime {
                 .mname(this.memberEntity.getMname())
                 .cno(this.categoryEntity.getCno())
                 .cname(this.categoryEntity.getCname())
-                .cdate(this.getCdate().toString())
+                .lno(this.languageEntity.getLno())
+                .lname(this.languageEntity.getLname())
+                .cdate(formatCdate)
                 .build();
     }
 }

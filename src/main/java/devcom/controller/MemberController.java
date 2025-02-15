@@ -12,7 +12,7 @@ public class MemberController {
 
     // 회원가입
     @PostMapping("/member/signup.do")
-    public boolean signup(MemberDto memberDto){ // multipart/form-data
+    public boolean signup(@RequestBody MemberDto memberDto){ // multipart/form-data x
         return memberService.signup(memberDto); // *첨부파일 포함
     }
     // 로그인
