@@ -3,13 +3,14 @@ const info = () => {
     const option = {method : "GET"}
     fetch("/member/info.do", option)
         .then(r => r.json())
-        .then(d => {
-            if(d != ''){
-                document.querySelector('.midInput').value = d.mid;
-                document.querySelector('.mnameInput').value = d.mname;
-                document.querySelector('.memailInput').value = d.memail;
-                document.querySelector('.mphone').value = d.mphone;
-                document.querySelector('.mbirthInput').value = d.mbirth;
+        .then(data => {
+            if(data != ''){
+                console.log(data);
+                document.querySelector('.midInput').value = data.mid;
+                document.querySelector('.mnameInput').value = data.mname;
+                document.querySelector('.memailInput').value = data.memail;
+                document.querySelector('.mphoneInput').value = data.mphone;
+                document.querySelector('.mbirthInput').value = data.mbirth;
             }
         })
         .catch(e => console.log(e))
