@@ -7,9 +7,18 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* 모든 폰트를 웹 폰트로 변경 */
 * {
   font-family: "SBAggroB";
+  /* font-family: "Pretendard-Regular"; */
 }
 
 /* 글로벌 css */
