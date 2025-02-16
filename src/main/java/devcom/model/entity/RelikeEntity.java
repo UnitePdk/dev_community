@@ -28,4 +28,5 @@ public class RelikeEntity extends BaseTime {
     @JoinColumn(name = "rno", nullable = false)
     private ReplyEntity replyEntity;
 
+
 }

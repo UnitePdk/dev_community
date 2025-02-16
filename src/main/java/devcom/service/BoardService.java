@@ -39,7 +39,18 @@ public class BoardService {
 
     // 게시물 목록 조회
     public PageDto boardFindAll(int cno, int page, int lno, String key, String keyword) {
+
+        
+
         // 페이징
+
+
+        int mno=0;
+        if(memberService.getSession()!=null) {
+            mno = memberRepository.findByMid(memberService.getSession()).getMno();
+        }
+        System.out.println(mno);
+
         Pageable pageable= PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "bno"));
         Page<BoardEntity> boardEntityList;
         if(lno==-1){
@@ -77,6 +88,9 @@ public class BoardService {
         BoardEntity boardEntity = boardDto.toEntity();
 
         // 임시로 mno에 임의값 대입
+        System.out.println(
+                memberService.getSession());
+
         MemberEntity loginEntity = memberRepository.findById( 1 ).get();
         boardEntity.setMemberEntity(loginEntity);
 

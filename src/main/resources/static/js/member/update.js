@@ -3,13 +3,13 @@ const info = () => {
     const option = {method : "GET"}
     fetch("/member/info.do", option)
         .then(r => r.json())
-        .then(d => {
-            if(d != ''){
-                document.querySelector('.midInput').value = d.mid;
-                document.querySelector('.mnameInput').value = d.mname;
-                document.querySelector('.memailInput').value = d.memail;
-                document.querySelector('.mphone').value = d.mphone;
-                document.querySelector('.mbirthInput').value = d.mbirth;
+        .then(data => {
+            console.log(data)
+            if(data != ''){
+                document.querySelector('.midInput').value = data.mid;
+                document.querySelector('.mnameInput').value = data.mname;
+                document.querySelector('.memailInput').value = data.memail;
+                document.querySelector('.mphoneInput').value = data.mphone;
             }
         })
         .catch(e => console.log(e))
@@ -28,6 +28,8 @@ const onUpdate = () => {
         mphone : mphone
     }
 
+    console.log(obj)
+
     const option = {
         method : "PUT", 
         headers : {'Content-Type':'application/json'},
@@ -37,7 +39,11 @@ const onUpdate = () => {
     fetch('/member/update.do', option)
         .then(r => r.json())
         .then(d => {
-            if(d == true){alert('회원 수정 성공'); location.href = "/member/info";}
+            console.log(d);
+            if(d == true){alert('회원 수정 성공');
+                          info();
+                          location.href = "/member/info";
+                          }
             else{alert('회원 수정 실패');}
         })
         .catch(e => console.log(e))
