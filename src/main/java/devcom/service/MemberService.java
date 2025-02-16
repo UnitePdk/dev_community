@@ -65,6 +65,7 @@ public class MemberService {
     }
 
     // 로그인
+    @Transactional
     public boolean login(@RequestBody MemberDto memberDto){
         boolean result = memberRepository.existsByMidAndMpwd(memberDto.getMid(), memberDto.getMpwd());
         if (result == true){
@@ -103,12 +104,14 @@ public class MemberService {
     }
 
     // 로그인 된 회원 정보 수정
+    @Transactional // 중요
     public boolean update(@RequestBody MemberDto memberDto){
         String mid = getSession();
         if (mid != null){
             MemberEntity memberEntity = memberRepository.findByMid(mid);
             memberEntity.setMname(memberDto.getMname());
             memberEntity.setMemail(memberDto.getMemail());
+            memberEntity.setMphone(memberDto.getMphone());
             return true;
         }
         return false;
