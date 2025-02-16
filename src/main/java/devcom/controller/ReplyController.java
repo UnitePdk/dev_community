@@ -27,14 +27,14 @@ public class ReplyController {
 
     // 댓글 수정
     @PutMapping("/reply/update.do")
-    public boolean replyUpdate(@RequestBody ReplyDto replyDto, HttpSession session) {
-        return replyService.replyUpdate(replyDto, session);
+    public boolean replyUpdate(@RequestBody ReplyDto replyDto) {
+        return replyService.replyUpdate(replyDto);
     }
 
     // 댓글 삭제
     @DeleteMapping("/reply/delete.do")
-    public boolean replyDelete(@RequestParam int rno, HttpSession session) {
-        return replyService.replyDelete(rno, session);
+    public boolean replyDelete(@RequestParam int rno) {
+        return replyService.replyDelete(rno);
     }
 
 }

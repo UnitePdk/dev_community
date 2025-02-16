@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReplyService {
@@ -55,27 +56,37 @@ public class ReplyService {
         System.out.println("회원 엔티티 : " + memberEntity);
 
         // 입력한 bno를 이용해 게시판 엔티티 조회
-        BoardEntity boardEntity = boardRepository.findById(replyDto.getBno())
-                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
-        System.out.println("게시글 엔티티 : " + boardEntity);
+        Optional<BoardEntity> boardEntityOpt = boardRepository.findById(replyDto.getBno());
+        if (boardEntityOpt.isEmpty()) {
+            System.out.println("게시글을 찾을 수 없습니다.");
+            return false;   // 게시글이 없으면 실패 처리
+        }
+        BoardEntity boardEntity = boardEntityOpt.get();
 
         // replyDto → replyEntity 변환 (MemberEntity, BoardEntity 포함)
         ReplyEntity replyEntity = replyDto.toEntity(memberEntity, boardEntity);
+        System.out.println("변환된 댓글 엔티티 : " + replyEntity);
 
         // DB에 저장
-        ReplyEntity saveReplyEntity = replyRepository.save(replyEntity);
+        try {
+            ReplyEntity saveReplyEntity = replyRepository.save(replyEntity);
+            System.out.println("저장된 댓글 : " + saveReplyEntity);
 
-        // 결과 반환
-        return saveReplyEntity.getRno() > 0;
+            // 결과 반환
+            return saveReplyEntity.getRno() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;  // 예외 발생 시 실패 처리
+        }
     }
 
     // 댓글 수정
-    public boolean replyUpdate(ReplyDto replyDto, HttpSession session) {
-        // 로그인된 사용자 정보 확인
-        MemberDto memberDto = (MemberDto) session.getAttribute("loginUser");
+    public boolean replyUpdate(ReplyDto replyDto) {
+        // 현재 로그인된 회원번호 조회
+        MemberDto memberDto = memberService.info();
         System.out.println("로그인 정보 : " + memberDto);
         if (memberDto == null) {
-            return false;   // 로그인이 안되어있음
+            return false;   // 로그인이 안된 경우 실패
         }
 
         // 기존 댓글 찾기
@@ -83,6 +94,12 @@ public class ReplyService {
         System.out.println("기존 댓글 존재 : " + replyEntity);
         if (replyEntity == null) {
             return false;   // 본인이 작성한 댓글인지 확인
+        }
+
+        // 댓글 작성자 확인
+        if (replyEntity.getMemberEntity().getMno() != memberDto.getMno()) {
+            System.out.println("본인이 작성한 댓글이 아닙니다.");
+            return false;   // 본인이 작성한 댓글이 아닌 경우
         }
 
         // 댓글 수정
@@ -95,13 +112,13 @@ public class ReplyService {
     }
 
     // 댓글 삭제
-    public boolean replyDelete(int rno, HttpSession session) {
+    public boolean replyDelete(int rno) {
 
-        // 로그인된 사용자 확인
-        MemberDto memberDto = (MemberDto) session.getAttribute("loginUser");
+        // 현재 로그인된 회원번호 조회
+        MemberDto memberDto = memberService.info();
         System.out.println("로그인 정보 : " + memberDto);
         if (memberDto == null) {
-            return false;   // 로그인 안되어 있으면 실패
+            return false;   // 로그인이 안된 경우 실패
         }
 
         // 기존 댓글 찾기
@@ -113,6 +130,7 @@ public class ReplyService {
 
         // 댓글 작성자 = 로그인 사용자가 같은지
         if (replyEntity.getMemberEntity().getMno() != memberDto.getMno()) {
+            System.out.println("본인이 작성한 댓글이 아닙니다.");
             return false;   // 본인이 작성한 댓글이 아니면 삭제불가
         }
 
