@@ -3,27 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <title>message page</title>
+    <!-- jQuery 라이브러리 추가 - 썸머노트 에디터 사용에 필요 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 썸머노트 에디터 CSS - 스타일 적용에 필요 -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
+    <!-- 썸머노트 에디터 JS - 기능 구현에 필요 -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <!-- 썸머노트 한국어 지원 파일 - 한글 메뉴 표시에 필요 -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
+    <link rel="stylesheet" href="/static/css/message.css" />
   </head>
   <body>
-    <h3>Message.Html</h3>
-    <!-- 헤더 html 플러그인  -->
+    <!-- 페이지 제목 -->
+    <h3>Message Page</h3>
+
+    <!-- 헤더 부분 - 타임리프 템플릿으로 header.html을 불러옴 -->
     <div th:replace="~{ /header.html :: header }"></div>
 
+    <!-- 메인 컨텐츠 영역 -->
     <div class="container">
-      <!-- 헤더 부분분 -->
-      <div class="header">
-        <div class="header_right">로고고</div>
-
-        <div class="header_left">로그인 상태</div>
-      </div>
-      <!-- 메인 왼쪽 박스 부분 -->
-      <nav>
-        <div class="rightbox"></div>
-        <div class="left box">
-          <!-- btn btn-primary 부트스트랩 css -->
-          <button class="btn btn-primary" type="button" onclick="location.href='/board/write' ">쪽지 쓰기</button>
+      <!-- 쪽지함 전체 컨테이너 -->
+      <div class="message-container">
+        <!-- 사용자 프로필 헤더 섹션 -->
+        <div class="profile-header">
+          <div class="profile-img">
+            <img src="" alt="프로필" />
+          </div>
+          <div class="profile-info">
+            <span class="profile-name" th:text="${member.mid}">사용자id</span>
+            <span class="profile-email" th:text="${member.memail}">user@example.com</span>
+          </div>
+          <div class="header-title">쪽지함</div>
         </div>
-      </nav>
+
+        <!-- 탭 컨테이너 - 받은 쪽지함/보낸 쪽지함 선택 영역 -->
+        <div class="tab-container">
+          <div class="nav-container">
+            <div class="tab active" onclick="loadMessages('receive')">받은 쪽지함</div>
+            <div class="tab" onclick="loadMessages('send')">보낸 쪽지함</div>
+            <button class="btn-message primary" onclick="openSendMessageModal()">쪽지 보내기</button>
+          </div>
+        </div>
+
+        <!-- 메시지 목록 표시 영역 -->
+        <ul class="message-list" id="messageList"></ul>
+
+        <!-- 버튼 컨테이너 -->
+        <div class="button-container">
+          <button class="btn-message" onclick="deleteSelectedMessages()">삭제</button>
+        </div>
+      </div>
     </div>
+
+    <!-- 메시지 관련 JavaScript 파일 로드 -->
+    <script src="/static/js/message/message.js"></script>
+
+    <!-- 로그인 체크 및 메시지 로드 -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        checkLoginStatus();
+      });
+
+      function checkLoginStatus() {
+        fetch("/member/login/id")
+          .then((response) => response.text())
+          .then((userId) => {
+            if (!userId || userId.trim() === "null") {
+              alert("로그인이 필요합니다.");
+              window.location.href = "/login";
+            }
+          })
+          .catch((error) => {
+            console.error("로그인 상태 확인 중 오류 발생:", error);
+            alert("로그인 확인에 실패했습니다. 다시 시도해주세요.");
+            window.location.href = "/login";
+          });
+      }
+    </script>
   </body>
 </html>
