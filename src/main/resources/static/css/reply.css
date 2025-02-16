@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background: #f5f5f5;
-  padding: 20px;
-}
-
 .replyContent {
   max-width: 800px;
   margin: 0 auto;
