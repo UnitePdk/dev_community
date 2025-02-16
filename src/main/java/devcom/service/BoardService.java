@@ -42,8 +42,11 @@ public class BoardService {
         // 페이징
 
 
-        System.out.println(
-                memberRepository.findByMid(memberService.getSession()).getMno());
+        int mno=0;
+        if(memberService.getSession()!=null) {
+            mno = memberRepository.findByMid(memberService.getSession()).getMno();
+        }
+        System.out.println(mno);
 
         Pageable pageable= PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "bno"));
         Page<BoardEntity> boardEntityList;
