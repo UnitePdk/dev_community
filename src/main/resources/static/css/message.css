@@ -1,32 +1,48 @@
-/* Main container styles */
-.message-container {
-  width: 800px;
-  margin: 30px auto;
-  border: 1px solid #dadada;
-  border-radius: 6px;
-  background-color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+/* 기본 스타일 설정 */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
 }
 
-/* Profile header section */
+/* 페이지 제목 */
+h3 {
+  text-align: center;
+  margin-top: 20px;
+  color: #333;
+}
+
+/* 쪽지함 전체 컨테이너 */
+.message-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 30px auto;
+  width: 90%;
+}
+
+/* 프로필 헤더 */
 .profile-header {
-  padding: 15px 20px;
-  background-color: #f5f6f7;
-  border-bottom: 1px solid #dadada;
-  border-radius: 6px 6px 0 0;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 15px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #333;
+  flex-grow: 1;
 }
 
 .profile-img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #ccc;
   overflow: hidden;
 }
 
@@ -39,7 +55,7 @@
 .profile-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  margin-left: 15px;
 }
 
 .profile-name {
@@ -52,57 +68,58 @@
   color: #666;
 }
 
-.header-title {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: #000;
-  margin-left: auto;
-}
-
-/* Tab navigation */
+/* 탭 컨테이너 */
 .tab-container {
   display: flex;
   background-color: #fff;
-  border-bottom: 1px solid #dadada;
-  padding: 0 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .nav-container {
   display: flex;
   align-items: center;
   width: 100%;
-  position: relative;
 }
 
 .tab {
   padding: 12px 20px;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
   color: #666;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.tab:hover {
+  background-color: #f1f1f1;
 }
 
 .tab.active {
-  border-bottom: 2px solid #333;
-  color: #333;
-  font-weight: bold;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  font-weight: 700;
 }
 
 .btn-message.primary {
   margin-left: auto;
-  background-color: #333;
+  background-color: #007bff;
   color: white;
   border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-/* Message list */
+.btn-message.primary:hover {
+  background-color: #0056b3;
+}
+
+/* 메시지 리스트 */
 .message-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
@@ -120,11 +137,10 @@
 
 .message-checkbox {
   margin-right: 15px;
-  padding-top: 3px; /* Align with content */
 }
 
 .message-content {
-  flex: 1;
+  flex-grow: 1;
 }
 
 .message-header {
@@ -139,13 +155,13 @@
 }
 
 .message-date {
-  color: #666;
   font-size: 0.9em;
+  color: #888;
 }
 
 .message-title {
   margin-bottom: 5px;
-  font-weight: 500;
+  font-weight: 600;
   color: #333;
 }
 
@@ -155,69 +171,73 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 600px;
 }
 
-/* Button container */
+/* 버튼 컨테이너 */
 .button-container {
   padding: 15px 20px;
   display: flex;
   gap: 10px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ddd;
 }
 
 .btn-message {
   padding: 8px 16px;
-  border: 1px solid #dadada;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: white;
+  font-size: 14px;
   cursor: pointer;
-  font-size: 0.9em;
   transition: all 0.2s ease;
 }
 
 .btn-message:hover {
-  background-color: #f5f6f7;
+  background-color: #e2e6ea;
 }
 
 .btn-message.primary:hover {
-  background-color: #444;
+  background-color: #0056b3;
+  color: white;
 }
 
-/* Modal customization */
-.modal-dialog {
-  max-width: 600px;
-}
-
-.modal-body .form-label {
-  font-weight: 500;
-}
-
+/* 썸머노트 스타일 */
 .note-editor {
-  border-color: #ced4da !important;
+  border-color: #ccc !important;
 }
 
 .note-editor .note-toolbar {
   background-color: #f8f9fa;
+  border-color: #ddd;
 }
 
-/* Responsive adjustments */
-@media (max-width: 850px) {
+.note-editor .note-toolbar button {
+  color: #333;
+}
+
+.note-editor .note-editable {
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 150px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
   .message-container {
-    width: 95%;
+    width: 100%;
+    margin: 10px;
   }
 
   .message-preview {
     max-width: 400px;
   }
-}
 
-@media (max-width: 576px) {
-  .message-preview {
-    max-width: 200px;
-  }
-
-  .profile-email {
-    display: none;
+  .tab-container {
+    flex-direction: column;
+    padding: 15px;
   }
 }

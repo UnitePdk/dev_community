@@ -1,88 +1,47 @@
-// * 썸머노트 실행
-$(document).ready(function() {
-  $('#summernote').summernote({
-    height: 300,
-    lang: 'ko-KR',
-    placeholder: '메시지 내용을 입력해주세요'
-  });
-});
+// 메시지 전송 함수
+ function sendMessage() {
+     // 입력값 가져오기
+     const receiverId = document.querySelector('.receiverId').value;
+     const metitle = document.querySelector('.metitle').value;
+     const mecontent = $('#summernote').summernote('code');  // 썸머노트에서 내용을 가져오기
 
-// 이전 페이지로 돌아가기
-const goBack = () => {
-  window.history.back();
-};
+     // 입력값 검증
+     if (!receiverId || !metitle || !mecontent) {
+         alert('모든 필드를 입력해주세요.');
+         return;
+     }
 
-// URL 파라미터 가져오기 함수
-const getUrlParams = () => {
-  const params = {};
-  const queryString = window.location.search.substring(1);
-  const paramPairs = queryString.split('&');
+     // 메시지 데이터 구성
+     const obj = {
+         receiverId: receiverId,
+         metitle: metitle,
+         mecontent: mecontent
+     };
 
-  paramPairs.forEach(pair => {
-    const [key, value] = pair.split('=');
-    if (key && value) {
-      params[key] = decodeURIComponent(value);
-    }
-  });
+     // fetch API 호출
+    fetch('/message/send.do', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text();  // 응답 내용을 텍스트로 가져오기
+        }
+        return response.json();  // JSON 형식으로 반환
+    })
+    .then(data => {
+        console.log(data);  // 응답 내용 확인
+        if (data) {
+            alert('메시지가 성공적으로 전송되었습니다.');
+            location.href = `/message?sendermno=${loginMno}`;
+        } else {
+            alert('메시지 전송에 실패했습니다. 다시 시도해주세요.');
+        }
+    })
+    .catch(e => {
+        console.log(e);
+        alert('메시지 전송 중 오류가 발생했습니다.');
+    });
 
-  return params;
-};
-
-// 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', () => {
-  // URL 파라미터 확인
-  const params = getUrlParams();
-
-  // 수신자 ID가 있으면 설정
-  if (params.receiverId) {
-    document.getElementById('receiverId').value = params.receiverId;
-  }
-
-  // 원본 제목이 있으면 "Re: " 추가하여 설정
-  if (params.originalTitle) {
-    document.getElementById('messageTitle').value = `Re: ${params.originalTitle}`;
-  }
-});
-
-// 쪽지 보내기 함수
-const sendMessage = () => {
-  const receiverId = document.getElementById('receiverId').value;
-  const title = document.getElementById('messageTitle').value;
-  const content = $('#summernote').summernote('code');
-
-  if (!receiverId || !title || !content) {
-    alert('모든 필드를 입력해주세요.');
-    return;
-  }
-
-  const messageData = {
-    receiverId: receiverId,
-    title: title,
-    content: content
-  };
-
-  fetch('/api/messages/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(messageData)
-  })
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      alert('메시지를 전송했습니다.');
-      // 폼 초기화
-      document.getElementById('sendMessageForm').reset();
-      $('#summernote').summernote('code', '');
-      // 메시지 목록 페이지로 이동
-      window.location.href = '/messages';
-    } else {
-      alert(result.message || '메시지 전송에 실패했습니다.');
-    }
-  })
-  .catch(error => {
-    console.error('메시지 전송 중 오류 발생:', error);
-    alert('메시지 전송에 실패했습니다.');
-  });
-};
+ }

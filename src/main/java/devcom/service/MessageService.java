@@ -53,42 +53,10 @@ public class MessageService {
             System.out.println("메세지 전송 성공");
             return true;
 
-
-//            // 기존
-//            System.out.println("보내는 사람 ID: " + messageDto.getSendermno());
-//            System.out.println("받는 사람 ID: " + messageDto.getReceivermno());
-//
-//            // 1. 보내는 사람과 받는 사람의 회원 엔티티 찾기
-//            Optional<MemberEntity> optionalSender = memberRepository.findById(messageDto.getSendermno());
-//            Optional<MemberEntity> optionalReceiver = memberRepository.findById(messageDto.getReceivermno());
-//
-//            System.out.println("보내는 사람 존재 여부: " + optionalReceiver.isPresent());
-//            System.out.println("받는 사람 존재 여부: " + optionalSender.isPresent());
-//
-//            if(optionalSender.isPresent() && optionalReceiver.isPresent()) {
-//                MemberEntity sender = optionalSender.get();
-//                MemberEntity receiver = optionalReceiver.get();
-//                System.out.println(receiver.getMno());
-//
-//                // MessageEntity를 생성할 때 sender, receiver 설정
-//                MessageEntity messageEntity = MessageEntity.builder()
-//                        .metitle(messageDto.getMetitle())
-//                        .mecontent(messageDto.getMecontent())
-//                        .sendermno(sender)
-//                        .receivermno(receiver)
-//                        .build();
-//
-//                messageRepository.save(messageEntity);
-//                return true;
             } catch (Exception e) {
             System.out.println("메세지 전송실패: " + e);
             return false;
         }
-//            return false;
-//        } catch (Exception e) {
-//            System.out.println("메세지 전송 실패" + e);
-//            return false;
-//        }
     }
 
     // [2] 받은 메세지 조회 추가 해야하는거: 삭제된 메세지 필터링

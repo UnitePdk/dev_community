@@ -1,203 +1,166 @@
-// * 썸머노트 실행 (쪽지 보내기 기능은 제거됨)
-$(document).ready(function () {
-  $('#summernote').summernote({
-    height: 300,
-    lang: 'ko-KR',
-    placeholder: '메시지 내용을 입력해주세요',
-  });
+document.addEventListener('DOMContentLoaded', function() {
+    // 페이지 로드 시 받은 쪽지함 표시
+    loadReceivedMessages();
+
+    // 탭 전환 시 각각의 메시지 목록 로드
+    document.getElementById('sent-tab').addEventListener('click', loadSentMessages);
+    document.getElementById('received-tab').addEventListener('click', loadReceivedMessages);
 });
 
-// 이전 페이지로 돌아가기
-const goBack = () => {
-  window.history.back();
-};
+// 받은 쪽지 목록 로드 함수
+function loadReceivedMessages() {
+    const loginMno = getCurrentUserMno();
 
-// URL 파라미터 가져오기 함수
-const getUrlParams = () => {
-  const params = {};
-  const queryString = window.location.search.substring(1);
-  const paramPairs = queryString.split('&');
-
-  paramPairs.forEach(pair => {
-    const [key, value] = pair.split('=');
-    if (key && value) {
-      params[key] = decodeURIComponent(value);
+    if (!loginMno) {
+        alert('로그인이 필요합니다.');
+        return;
     }
-  });
 
-  return params;
-};
+    console.log('받은 쪽지를 가져오는 중, mno:', loginMno);
 
-// 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', () => {
-  // URL 파라미터 확인
-  const params = getUrlParams();
-
-  // 수신자 ID가 있으면 설정
-  if (params.receiverId) {
-    document.getElementById('receiverId').value = params.receiverId;
-  }
-
-  // 원본 제목이 있으면 "Re: " 추가하여 설정
-  if (params.originalTitle) {
-    document.getElementById('messageTitle').value = `Re: ${params.originalTitle}`;
-  }
-});
-
-// 메시지 목록 로드 함수
-const loadMessages = (type) => {
-  currentTab = type;
-  // 탭 스타일 업데이트
-  document.querySelectorAll('.tab').forEach((tab) => {
-    tab.classList.remove('active');
-  });
-  document.querySelector(`.tab[onclick="loadMessages('${type}')"]`).classList.add('active');
-
-  // API 요청
-  fetch(`/api/messages/${type}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const messageList = document.getElementById('messageList');
-      let html = '';
-
-      data.forEach((message) => {
-        html += `
-                    <li class="message-item">
-                        <div class="message-checkbox">
-                            <input type="checkbox"
-                                   id="msg${message.id}"
-                                   onclick="toggleMessageSelection(${message.id})" />
-                        </div>
-                        <div class="message-content" onclick="viewMessageDetail(${message.id})">
-                            <div class="message-header">
-                                <span class="message-sender">${
-                                  type === 'receive' ? message.sender : message.receiver
-                                }</span>
-                                <span class="message-date">${formatDate(message.sendDate)}</span>
-                            </div>
-                            <div class="message-title">${message.title}</div>
-                            <div class="message-preview">${message.content}</div>
-                        </div>
-                    </li>
-                `;
-      });
-
-      messageList.innerHTML = html;
+    fetch(`/message/receive/find.do?receivermno=${loginMno}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include' // 로그인 정보를 쿠키로 포함
     })
-    .catch((error) => {
-      console.error('메시지 로드 중 오류 발생:', error);
-      alert('메시지를 불러오는데 실패했습니다.');
-    });
-};
-
-// 메시지 선택 토글 함수
-const toggleMessageSelection = (messageId) => {
-  if (selectedMessages.has(messageId)) {
-    selectedMessages.delete(messageId);
-  } else {
-    selectedMessages.add(messageId);
-  }
-};
-
-// 선택된 메시지 삭제 함수
-const deleteSelectedMessages = () => {
-  if (selectedMessages.size === 0) {
-    alert('삭제할 메시지를 선택해주세요.');
-    return;
-  }
-
-  if (!confirm('선택한 메시지를 삭제하시겠습니까?')) {
-    return;
-  }
-
-  const messageIds = Array.from(selectedMessages);
-
-  fetch('/api/messages/delete', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      messageIds: messageIds,
-      type: currentTab,
-    }),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.success) {
-        alert('메시지가 삭제되었습니다.');
-        selectedMessages.clear();
-        loadMessages(currentTab);
-      } else {
-        alert('메시지 삭제에 실패했습니다.');
-      }
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP 오류 발생! 상태: ${response.status}`);
+        }
+        return response.json();
     })
-    .catch((error) => {
-      console.error('메시지 삭제 중 오류 발생:', error);
-      alert('메시지 삭제에 실패했습니다.');
-    });
-};
+    .then(messages => {
+        console.log('받은 쪽지:', messages);
 
-// 메시지 상세 보기 함수
-const viewMessageDetail = (messageId) => {
-  fetch(`/api/messages/detail/${messageId}`)
-    .then((response) => response.json())
-    .then((message) => {
-      // 메시지 상세 내용을 모달로 표시
-      const modalHtml = `
-                <div class="modal fade" id="messageDetailModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">${message.title}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p><strong>${currentTab === 'receive' ? '보낸 사람' : '받는 사람'}:</strong>
-                                   ${currentTab === 'receive' ? message.sender : message.receiver}</p>
-                                <p><strong>날짜:</strong> ${formatDate(message.sendDate)}</p>
-                                <hr>
-                                <div>${message.content}</div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        const tbody = document.getElementById('receivedMessages');
+        tbody.innerHTML = ''; // 기존 목록 초기화
+
+        if (!Array.isArray(messages)) {
+            console.error('예상한 메시지 배열이 아닌 값이 들어왔습니다:', messages);
+            return;
+        }
+
+        // 받은 쪽지 목록 출력
+        messages.forEach(message => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${escapeHtml(message.metitle)}</td>
+                <td>${escapeHtml(message.sendmid)}</td>
+                <td>${formatDate(message.medate)}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm"
+                            onclick="deleteReceivedMessage(${message.meno}, ${loginMno})">
+                        삭제
+                    </button>
+                </td>
             `;
-
-      // 기존 상세 보기 모달이 있다면 제거
-      const existingModal = document.getElementById('messageDetailModal');
-      if (existingModal) {
-        existingModal.remove();
-      }
-
-      // 새 모달 추가 및 표시
-      document.body.insertAdjacentHTML('beforeend', modalHtml);
-      const modal = new bootstrap.Modal(document.getElementById('messageDetailModal'));
-      modal.show();
+            tbody.appendChild(row);
+        });
     })
-    .catch((error) => {
-      console.error('메시지 상세 조회 중 오류 발생:', error);
-      alert('메시지 상세 내용을 불러오는데 실패했습니다.');
+    .catch(error => {
+        console.error('받은 쪽지 로드 실패:', error);
+        alert('쪽지 목록을 불러오는데 실패했습니다.');
     });
-};
+}
+
+// 보낸 쪽지 목록 로드 함수
+function loadSentMessages() {
+    const loginMno = getCurrentUserMno();
+
+    if (!loginMno) {
+        alert('로그인이 필요합니다.');
+        return;
+    }
+
+    console.log('보낸 쪽지를 가져오는 중, mno:', loginMno);
+
+    fetch(`/message/send/find.do?sendermno=${loginMno}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP 오류 발생! 상태: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(messages => {
+        console.log('보낸 쪽지:', messages);
+
+        const tbody = document.getElementById('sentMessages');
+        tbody.innerHTML = ''; // 기존 내용 비우기
+
+        if (!Array.isArray(messages)) {
+            console.error('예상한 메시지 배열이 아닌 값이 들어왔습니다:', messages);
+            return;
+        }
+
+        // 보낸 쪽지 목록 출력
+        messages.forEach(message => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${escapeHtml(message.metitle)}</td>
+                <td>${escapeHtml(message.receivermid)}</td>
+                <td>${formatDate(message.medate)}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm"
+                            onclick="deleteSentMessage(${message.meno}, ${loginMno})">
+                        삭제
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('보낸 쪽지 로드 실패:', error);
+        alert('쪽지 목록을 불러오는데 실패했습니다.');
+    });
+}
+
+// XSS 방지를 위한 HTML 이스케이프 함수
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 // 날짜 포맷팅 함수
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString; // 유효하지 않은 날짜는 원본 반환
 
-// 페이지 로드 시 받은 쪽지함 표시
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('message.js open');
-  loadMessages('receive');
-});
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+// 현재 로그인한 사용자의 mno를 반환하는 함수
+function getCurrentUserMno() {
+    const mno = sessionStorage.getItem('mno');
+    if (!mno) {
+        console.error('로그인 정보가 없습니다.');
+        return null;
+    }
+    return mno;
+}
+
+// 로그인 상태 확인
+function checkLoginStatus() {
+    const mno = getCurrentUserMno();
+    if (!mno) {
+        alert('로그인이 필요한 서비스입니다.');
+        window.location.href = '/login'; // 로그인 페이지로 리다이렉트
+        return false;
+    }
+    return true;
+}

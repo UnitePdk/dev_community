@@ -48,4 +48,12 @@ public class ViewController {
     // 문제은행 개별 게시물 조회 페이지 반환
     @GetMapping("/board/view")
     public String view() { return "/board/question/view.html";}
+
+    // 메시지 목록 페이지 반환
+    @GetMapping("/messages")
+    public String messageList() { return "/message/message.html";}
+
+    // 메시지 작성 페이지 반환
+    @GetMapping("/messages/write")
+    public String messageWrite() { return "/message/write.html";}
 }
