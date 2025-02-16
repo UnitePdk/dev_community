@@ -101,13 +101,12 @@ public class ReplyService {
             System.out.println("본인이 작성한 댓글이 아닙니다.");
             return false;   // 본인이 작성한 댓글이 아닌 경우
         }
-
         // 댓글 수정
         replyEntity.setRcontent((replyDto.getRcontent()));
 
         // DB 저장
         replyRepository.save(replyEntity);
-        
+
         return true;    // 수정 성공
     }
 

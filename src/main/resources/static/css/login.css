@@ -17,8 +17,12 @@ body {
 }
 
 .wrapper {
-	margin-top: 80px;
-  margin-bottom: 80px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align : center
 }
 
 .form-signin {
@@ -60,4 +64,9 @@ body {
 	  border-top-left-radius: 0;
 	  border-top-right-radius: 0;
 	}
+}
+
+.logo {
+    width: 200px; /* 크기 조정 */
+    margin-bottom: 20px; /* 아래 여백 추가 */
 }
