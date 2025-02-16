@@ -39,6 +39,9 @@ public class BoardService {
 
     // 게시물 목록 조회
     public PageDto boardFindAll(int cno, int page, int lno, String key, String keyword) {
+
+        
+
         // 페이징
         Pageable pageable= PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "bno"));
         Page<BoardEntity> boardEntityList;
