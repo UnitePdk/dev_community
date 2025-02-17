@@ -61,6 +61,7 @@ public class BoardEntity extends BaseTime {
                 .btitle(this.btitle)
                 .bcontent(this.bcontent)
                 .bview(this.bview)
+                .blike(this.blike)
                 .mno(this.memberEntity.getMno())
                 .mname(this.memberEntity.getMname())
                 .cno(this.categoryEntity.getCno())

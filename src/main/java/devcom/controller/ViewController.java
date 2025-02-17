@@ -45,4 +45,8 @@ public class ViewController {
     // 게시물 내용 조회 페이지 반환
     @GetMapping("/board/view")
     public String view() { return "/board/question/view.html";}
+
+    // 글쓰기 페이지 반환
+    @GetMapping("/board/write")
+    public String write() { return "/board/write.html";}
 }

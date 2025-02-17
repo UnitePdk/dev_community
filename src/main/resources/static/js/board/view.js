@@ -6,15 +6,21 @@ const onFind = () => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      document.querySelector(".mname").innerHTML = data.mname;
-      document.querySelector(".bview").innerHTML = data.bview;
-      document.querySelector(".cdate").innerHTML = data.cdate;
-      document.querySelector(".cname").innerHTML = data.cname;
-      document.querySelector(".btitle").innerHTML = data.btitle;
-      document.querySelector(".bcontent").innerHTML = data.bcontent;
+      document.querySelector(".mnameB").innerHTML = data.mname;
+      document.querySelector(".bviewB").innerHTML = data.bview;
+      document.querySelector(".cdateB").innerHTML = data.cdate;
+      document.querySelector(".cnameB").innerHTML = data.cname;
+      document.querySelector(".btitleB").innerHTML = data.btitle;
+      document.querySelector(".bcontentB").innerHTML = data.bcontent;
+      document.querySelector(".blikeB").innerHTML = data.blike;
+      document.querySelector(".blike").innerHTML = data.blike;
     })
     .catch((e) => {
       console.log(e);
     });
 };
 onFind();
+
+const boardLike = () => {
+  console.log("좋아요");
+};

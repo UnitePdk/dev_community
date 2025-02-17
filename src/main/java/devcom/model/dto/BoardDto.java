@@ -28,6 +28,6 @@ public class BoardDto {
     private List<ReplyDto> replyList;
 
     public BoardEntity toEntity() {
-        return BoardEntity.builder().btitle(this.btitle).bcontent(this.bcontent).bview(this.bview).blike(this.blike).build();
+        return BoardEntity.builder().btitle(this.btitle).bcontent(this.bcontent).build();
     }
 }

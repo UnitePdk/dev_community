@@ -11,17 +11,36 @@
 .list_right {
   width: 20%;
 }
+.write {
+  width: 120px;
+  background-color: #5885af;
+  border: 2px solid grey;
+  color: white;
+}
+.write > a {
+  padding: 10px;
+  font-family: "SBAggroB";
+}
+
+.title {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
 
 .pagebox {
   margin: 40px;
 }
-
+.key {
+  font-family: "SBAggroB";
+}
 .searchBox {
   display: flex;
   gap: 5px;
 }
 .searchButton {
   background-color: #5885af;
+  font-family: "SBAggroB";
 }
 
 .langBox {
@@ -42,12 +61,12 @@
 .lang {
   text-align: center;
   height: 50px;
-  border: 1px solid black;
   border-radius: 8px;
   font-size: 14px;
   background-color: #6aabd2;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: "SBAggroB";
 }
 .lang:hover {
   background-color: #5885af;
@@ -56,8 +75,11 @@
 .langTop {
   grid-area: 1 / 1 / 2 / 3;
   font-size: 18px;
-  padding: 10px;
 }
+.langTop:hover {
+  background-color: #6aabd2;
+}
+
 .langBottom {
   grid-area: 8 / 1 / 9 / 3;
   font-size: 18px;
