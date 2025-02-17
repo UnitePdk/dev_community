@@ -4,14 +4,16 @@ console.log("reply.js open");
 //     // console.log("reply.js open");
 // }
 
-// 페이지 로드 시 댓글 목록 불러오기
-document.addEventListener("DOMContentLoaded", function () {
-    getReplies(); // 페이지가 로드될 때 댓글 목록을 가져옵니다.
-});
+// // 페이지 로드 시 댓글 목록 불러오기
+// document.addEventListener("DOMContentLoaded", function () {
+//     getReplies(); // 페이지가 로드될 때 댓글 목록을 가져옵니다.
+// });
 
 // 댓글 목록 불러오기
 function getReplies() {
-    fetch("/reply/findall.do")
+    const bno = getBno();
+
+    fetch(`/reply/findall.do?bno=${bno}`)
         .then(response => response.json())
         .then(data => {
             const replyList = document.querySelector(".reply-list");
@@ -48,12 +50,13 @@ function getReplies() {
         .catch(error => console.error("댓글 불러오기 실패:", error));
 }
 
+getReplies();
+
 // 댓글 작성
 function onReplyWrite() {
-    const bno = document.querySelector(".bno").value;
-    console.log("함수 실행됨.")
-    console.log("게시글 번호: " + bno); // 이 값이 제대로 출력되는지 확인
-
+   
+    const bno = getBno();
+    
     if (!bno || bno === "0") {
         alert("잘못된 게시글 번호입니다.");
         return;

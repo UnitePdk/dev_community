@@ -19,7 +19,7 @@ public class ReplyDto {
     private String cdate;       // 생성날짜
     private String udate;       // 수정날짜
     private int mno;            // 작성자
-    private int bno;            // 게시판번호
+    private int bno;           // 게시판번호
     private String mname;          // 회원 이름 추가
 
 
