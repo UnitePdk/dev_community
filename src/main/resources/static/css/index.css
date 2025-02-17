@@ -17,8 +17,7 @@
 
 /* 모든 폰트를 웹 폰트로 변경 */
 * {
-  font-family: "SBAggroB";
-  /* font-family: "Pretendard-Regular"; */
+  font-family: "Pretendard-Regular";
 }
 
 /* 글로벌 css */
@@ -40,4 +39,20 @@ section {
   border: solid 1px black;
   width: 300px;
   height: 300px;
+}
+
+h3 {
+  font-family: "SBAggroB";
+}
+
+/* 메인 페이지 */
+.mainPage {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carouselImg {
+  overflow: hidden;
 }
