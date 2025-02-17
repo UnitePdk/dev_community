@@ -12,13 +12,14 @@
   width: 20%;
 }
 .write {
-  width: 120px;
-  background-color: #5885af;
+  width: 100px;
+  background-color: #2e3b42;
   border: 2px solid grey;
   color: white;
 }
 .write > a {
-  padding: 10px;
+  padding: 6px;
+  padding-bottom: 4px;
   font-family: "SBAggroB";
 }
 
@@ -39,7 +40,8 @@
   gap: 5px;
 }
 .searchButton {
-  background-color: #5885af;
+  background-color: #2e3b42;
+  color: white;
   font-family: "SBAggroB";
 }
 
@@ -72,6 +74,7 @@
   background-color: #5885af;
 }
 
+/* 랭탑을 어두운배경 흰글씨 랭을 흰바탕에 네이비 */
 .langTop {
   grid-area: 1 / 1 / 2 / 3;
   font-size: 18px;
