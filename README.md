@@ -15,3 +15,5 @@ DevBoard
 4. 쪽지 기능을 통해 사용자간 원활하고 자유로운 의사소통을 제공한다.
 ## :file_folder: 프로젝트 Git 
 https://github.com/UnitePdk/dev_community
+## :computer: 기술 스택 
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
