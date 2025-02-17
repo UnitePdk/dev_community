@@ -27,18 +27,20 @@ public class ReplyService {
     @Autowired BoardService boardService;
 
     // 모든 게시물에 댓글 목록 조회
-    public List<ReplyDto> replyFindAll() {
+    public List<ReplyDto> replyFindAll(int bno) {
         List<ReplyEntity> replyEntityList = replyRepository.findAll();
 
-        // 모든 엔티티 --> dto 변환
-        List<ReplyDto> replyDtoList = new ArrayList<>();
-        
-        // 모든 댓글 엔티티를 반복문으로 조회
-        replyEntityList.forEach(entity -> {
-            ReplyDto replyDto = entity.toDto();
-            replyDtoList.add(replyDto);
+        List<ReplyDto> replyList=new ArrayList<>();
+
+        replyEntityList.forEach( (reply) ->{
+            // * 만약에 현재 조회중인 게시물번호 와 댓글리스트내 반복중인 댓글의 게시물번호 와 같다면
+            if( reply.getBoardEntity().getBno() == bno ){
+                ReplyDto replyDto=reply.toDto();
+                replyList.add(replyDto);
+            }
         });
-        return replyDtoList;
+
+        return replyList;
     }
 
     // 특정 게시물에 댓글 쓰기
