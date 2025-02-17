@@ -51,12 +51,13 @@ function getReplies() {
 // 댓글 작성
 function onReplyWrite() {
     const rcontent = document.querySelector(".rcontentInput").value;
+    let bno = new URL(location.href).searchParams.get("bno");
     if (!rcontent) {
         alert("댓글을 입력하세요!");
         return;
     }
 
-    const replyData = { rcontent: rcontent };
+    const replyData = { bno: bno, rcontent: rcontent };
 
     fetch("/reply/write.do", {
         method: "POST",
