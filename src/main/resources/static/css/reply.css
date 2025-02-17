@@ -92,8 +92,14 @@
   font-size: 14px;
 }
 
-.action-button:hover {
-  color: #228be6;
+.heart {
+  color: #ccc;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+.heart.active {
+  color: #ff4444;
 }
 
 .edit-delete-buttons {

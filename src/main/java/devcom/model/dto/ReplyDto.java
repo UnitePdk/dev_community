@@ -20,6 +20,7 @@ public class ReplyDto {
     private String udate;       // 수정날짜
     private int mno;            // 작성자
     private int bno;            // 게시판번호
+    private String mname;          // 회원 이름 추가
 
 
     // dto --> entity 변환

@@ -4,6 +4,8 @@ import devcom.model.dto.ReplyDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Setter
 @ToString
@@ -25,6 +27,8 @@ public class ReplyEntity extends BaseTime {
 
     // 좋아요
     @Column(nullable = false)
+
+
     private int relike; // rlike 예약어가 존재해서 relike 로 변경
 
     // 댓글 작성자
@@ -40,6 +44,7 @@ public class ReplyEntity extends BaseTime {
     // 댓글 좋아요 리스트 (양방향 매핑)
 
     // entity --> dto 반환
+
     public ReplyDto toDto() {
         return ReplyDto.builder()
                 .rno(this.rno)
@@ -48,6 +53,7 @@ public class ReplyEntity extends BaseTime {
                 .cdate(this.getCdate().toString())
                 .udate(this.getUdate().toString())
                 .mno(this.memberEntity.getMno())
+                .mname(this.memberEntity.getMname())
                 .bno(this.boardEntity.getBno())
                 .build();
     }
