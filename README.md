@@ -13,7 +13,7 @@ DevBoard
 2. 사용 언어별 게시판 분리/게시글 구분을 통해 다양한 질문, 홍보, 정보, 창작을 자유로이 제공한다. 
 3. 미니멀한 디자인으로 신규 이용자도 복잡하지 않게 찾을 수 있는 인터페이스와 카테고리를 제공한다.
 4. 쪽지 기능을 통해 사용자간 원활하고 자유로운 의사소통을 제공한다.
-## :file_folder: 프로젝트 Git 
+## :link: 프로젝트 Git 
 https://github.com/UnitePdk/dev_community
 ## :computer: 기술 스택 
 <div align = center>
@@ -21,5 +21,5 @@ https://github.com/UnitePdk/dev_community
 <br>
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 </div>
-## 프로젝트 계획서 
+## :file_folder: 프로젝트 계획서 
 <img src="img/기획서1.png">
