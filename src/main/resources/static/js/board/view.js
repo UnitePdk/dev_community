@@ -14,6 +14,7 @@ const onFind = () => {
       document.querySelector(".bcontentB").innerHTML = data.bcontent;
       document.querySelector(".blikeB").innerHTML = data.blike;
       document.querySelector(".blike").innerHTML = data.blike;
+      document.querySelector(".bno").value=data.bno;
     })
     .catch((e) => {
       console.log(e);

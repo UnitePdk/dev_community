@@ -25,6 +25,7 @@ public class ReplyDto {
 
     // dto --> entity 변환
     public ReplyEntity toEntity(MemberEntity memberEntity, BoardEntity boardEntity) {
+
         return ReplyEntity.builder()
                 .rcontent(this.rcontent)
                 .relike(this.relike)

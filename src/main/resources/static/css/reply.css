@@ -60,7 +60,7 @@
   height: 25px;
   border-radius: 50%;
   margin-right: 8px;
-  background-image: url(/static/img/profile.jpg);
+  background-image: url(/img/profile.jpg);
   background-size: cover;
   background-position: center;
 }
