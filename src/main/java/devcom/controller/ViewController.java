@@ -50,10 +50,10 @@ public class ViewController {
     public String view() { return "/board/question/view.html";}
 
     // 메시지 목록 페이지 반환
-    @GetMapping("/messages")
+    @GetMapping("/message")
     public String messageList() { return "/message/message.html";}
 
     // 메시지 작성 페이지 반환
-    @GetMapping("/messages/write")
+    @GetMapping("/message/write")
     public String messageWrite() { return "/message/write.html";}
 }
