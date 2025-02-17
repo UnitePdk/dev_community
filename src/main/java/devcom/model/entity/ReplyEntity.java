@@ -44,11 +44,14 @@ public class ReplyEntity extends BaseTime {
     // entity --> dto 반환
 
     public ReplyDto toDto() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formatCdate = this.getCdate().format(format);
+
         return ReplyDto.builder()
                 .rno(this.rno)
                 .rcontent(this.rcontent)
                 .relike(this.relike)
-                .cdate(this.getCdate().toString())
+                .cdate(formatCdate)
                 .udate(this.getUdate().toString())
                 .mno(this.memberEntity.getMno())
                 .mname(this.memberEntity.getMname())

@@ -15,8 +15,8 @@ public class ReplyController {
 
     // 댓글 목록 가져오기
     @GetMapping("/reply/findall.do")
-    public List<ReplyDto> replyDtoList() {
-        return replyService.replyFindAll();
+    public List<ReplyDto> replyDtoList(@RequestParam int bno) {
+        return replyService.replyFindAll(bno);
     }
 
     // 댓글 작성하기
