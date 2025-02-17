@@ -32,7 +32,7 @@ function getReplies() {
                     <div class="rcontent">${reply.rcontent}</div>
                     <div class="reply-action">
                         <div class="action-button" onclick="onReplyLike(${reply.rno})">
-                            <span>❤</span>
+                            <span class="heart">♥</span>
                             <span class="relike">${reply.relike}</span>
                         </div>
                         <span class="cdate">${reply.cdate}</span>
@@ -50,13 +50,22 @@ function getReplies() {
 
 // 댓글 작성
 function onReplyWrite() {
-    const rcontent = document.querySelector(".rcontentInput").value.trim();
+    const bno = document.querySelector(".bno").value;
+    console.log("함수 실행됨.")
+    console.log("게시글 번호: " + bno); // 이 값이 제대로 출력되는지 확인
+
+    if (!bno || bno === "0") {
+        alert("잘못된 게시글 번호입니다.");
+        return;
+    }
+
+    const rcontent = document.querySelector(".rcontentInput").value;
     if (!rcontent) {
         alert("댓글을 입력하세요!");
         return;
     }
 
-    const replyData = { rcontent: rcontent };
+    const replyData = { bno: bno, rcontent: rcontent, relike : 0 };
 
     fetch("/reply/write.do", {
         method: "POST",
@@ -65,7 +74,7 @@ function onReplyWrite() {
     })
         .then(response => response.json())
         .then(result => {
-            if (result) {
+            if (result == true) {
                 alert("댓글이 등록되었습니다!");
                 document.querySelector(".rcontentInput").value = ""; // 입력 필드 초기화
                 getReplies(); // 댓글 목록 다시 불러오기

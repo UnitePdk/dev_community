@@ -11,6 +11,7 @@
       <div th:replace="~{ /header.html :: header }"></div>
 
       <section class="viewTop">
+        <span class="bno" value=""></span>
         <div>
           <span class="bracket">[</span>
           <span class="cnameB"></span>
@@ -53,9 +54,9 @@
       <hr />
 
       <section class="viewBottom">
-        <div th:replace="~{ /reply.html :: reply }"></div>
+        <div th:replace="~{ /reply/reply.html :: reply }"></div>
       </section>
-
+      
       <script src="/js/board/view.js"></script>
     </div>
     <div th:replace="~{ /footer.html :: footer }"></div>
