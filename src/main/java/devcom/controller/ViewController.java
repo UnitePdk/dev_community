@@ -26,29 +26,26 @@ public class ViewController {
     @GetMapping("/member/update")
     public String Update() { return "/member/update.html";}
 
-    // 문제은행 페이지 반환
+    // 질문 페이지 반환
     @GetMapping("/board/ask")
     public String ask() { return "/board/ask/list.html";}
 
-    // 문제은행 페이지 반환
+    // 취업 페이지 반환
     @GetMapping("/board/advertise")
     public String advertise() { return "/board/advertise/list.html";}
 
-    // 문제은행 페이지 반환
+    // 튜토리얼 페이지 반환
     @GetMapping("/board/tutorial")
     public String tutorial() { return "/board/tutorial/list.html";}
-
-
+    
     // 문제은행 페이지 반환
     @GetMapping("/board/question")
     public String question() { return "/board/question/list.html";}
 
-    // 질문/취업/튜토리얼 게시물 조회 페이지 반환
-    
-    // 문제은행 개별 게시물 조회 페이지 반환
+    // 게시물 내용 조회 페이지 반환
     @GetMapping("/board/view")
     public String view() { return "/board/question/view.html";}
-
+    
     // 메시지 목록 페이지 반환
     @GetMapping("/message")
     public String messageList() { return "/message/message.html";}
@@ -56,4 +53,8 @@ public class ViewController {
     // 메시지 작성 페이지 반환
     @GetMapping("/message/write")
     public String messageWrite() { return "/message/write.html";}
+
+    // 글쓰기 페이지 반환
+    @GetMapping("/board/write")
+    public String write() { return "/board/write.html";}
 }

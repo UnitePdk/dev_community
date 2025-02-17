@@ -13,24 +13,6 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-//    // 게시물 목록 조회 - 질문
-//    @GetMapping("/board/ask.do")
-//    public List<BoardDto>boardAsk(){
-//        return boardService.boardAsk();
-//    }
-//
-//    // 게시물 목록 조회 - 대외/취업
-//    @GetMapping("/board/advertise.do")
-//    public List<BoardDto> boardAdvertise(){
-//        return boardService.boardAdvertise();
-//    }
-//
-//    // 게시물 목록 조회 - 튜토리얼
-//    @GetMapping("/board/tutorial.do")
-//    public List<BoardDto> boardTutorial(){
-//        return boardService.boardTutorial();
-//    }
-
     // 게시물 목록 조회 - 문제은행
     @GetMapping("/board/findall.do")
     public PageDto boardFindAll(@RequestParam int cno, @RequestParam int page, @RequestParam int lno, @RequestParam String key, @RequestParam String keyword){

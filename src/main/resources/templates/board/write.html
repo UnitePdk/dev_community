@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/write.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css"
+    />
+    <script src="/js/board/write.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <div th:replace="~{ /header.html :: header }"></div>
+
+      <section class="writeTop">
+        <div style="width: 200px">
+          <select class="form-select category">
+            <option value="1">질문</option>
+            <option value="2">대외/취업/홍보</option>
+            <option value="3">튜토리얼</option>
+            <option value="4">문제은행</option>
+          </select>
+        </div>
+        <input
+          type="text"
+          class="form-control btitle"
+          placeholder="제목을 입력하세요"
+        />
+      </section>
+
+      <hr />
+
+      <section class="writeMid">
+        <textarea id="summernote" name="editordata" class="bcontent"></textarea>
+        <br />
+      </section>
+
+      <button type="button" class="writeButton hoverAccent" onclick="onWrite()">
+        작성 완료
+      </button>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/lang/summernote-ko-KR.min.js"></script>
+  </body>
+</html>

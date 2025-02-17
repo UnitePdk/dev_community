@@ -11,6 +11,9 @@
     <div class="container" data-cno="2">
       <div th:replace="~{ /header.html :: header }"></div>
 
+      <span class="write link"
+        ><a class="nav-link" href="/board/write">글쓰기</a></span
+      >
       <div class="boardList">
         <div class="list_main">
           <table class="table">
@@ -20,6 +23,7 @@
                 <th>제목</th>
                 <th>작성자</th>
                 <th>조회수</th>
+                <th>좋아요</th>
                 <th>작성일</th>
               </tr>
             </thead>
@@ -39,5 +43,6 @@
         </div>
       </div>
     </div>
+    <div th:replace="~{ /footer.html :: footer }"></div>
   </body>
 </html>
