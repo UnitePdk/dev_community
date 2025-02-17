@@ -1,0 +1,20 @@
+.writeTop {
+  display: flex;
+  gap: 10px;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.writeButton {
+  padding: 8px;
+  font-size: 18px;
+  font-family: "SBAggroB";
+  background-color: #5885af;
+  border: 3px solid grey;
+  border-radius: 8px;
+  right: 30px;
+  color: white;
+}
+.writeButton:hover {
+  color: black;
+}

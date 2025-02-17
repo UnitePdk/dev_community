@@ -12,26 +12,52 @@
 
       <section class="viewTop">
         <div>
-          <span class="mname"></span>
-          <span class="bview"></span>
-          <span class="cdate"></span>
+          <span class="bracket">[</span>
+          <span class="cnameB"></span>
+          <span class="bracket">]</span>
+          <span class="btitleB"></span>
         </div>
 
-        <div>
-          <span class="cname"></span>
-          <span class="btitle"></span>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-right: 200px;
+          "
+        >
+          <div>
+            <span class="mnameB"></span>
+          </div>
+          <div style="display: flex; gap: 10px">
+            <span>조회</span>
+            <span class="bviewB"></span>
+            <span>|</span>
+            <span>좋아요</span>
+            <span class="blikeB"></span>
+            |
+            <span class="cdateB"></span>
+          </div>
         </div>
       </section>
+
+      <hr />
 
       <section class="viewMid">
-        <div class="bcontent"></div>
+        <div class="bcontentB"></div>
+        <div class="action-button blikeBox" onclick="boardLike()">
+          <span>❤</span>
+          <span class="blike"></span>
+        </div>
       </section>
 
+      <hr />
+
       <section class="viewBottom">
-        <div th:replace="~{ /reply/reply.html :: reply }"></div>
+        <div th:replace="~{ /reply.html :: reply }"></div>
       </section>
 
       <script src="/js/board/view.js"></script>
     </div>
+    <div th:replace="~{ /footer.html :: footer }"></div>
   </body>
 </html>

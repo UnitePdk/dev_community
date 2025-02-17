@@ -30,9 +30,10 @@ const findAll = () => {
       list.forEach((board) => {
         html += `<tr>
                     <td> ${board.bno} </td>
-                    <td> <a href="/board/view?bno=${board.bno}"> ${board.btitle} </a> </td>
+                    <td> <a class="title" href="/board/view?bno=${board.bno}"> ${board.btitle} </a> </td>
                     <td> ${board.mname} </td>
                     <td> ${board.bview} </td>
+                    <td> ${board.blike} </td>
                     <td> ${board.cdate} </td>
                 </tr>`;
       }); // foreach end
@@ -41,6 +42,8 @@ const findAll = () => {
     })
     .catch((e) => console.log(e));
 };
+
+// 글쓰기
 
 // 페이지 바
 const printPagenation = (data, key, keyword) => {

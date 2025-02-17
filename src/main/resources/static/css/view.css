@@ -1,13 +1,37 @@
 .viewTop {
-  margin: 8px;
-  border: 1px solid black;
+  margin-top: 8px;
+  padding: 30px;
 }
 .viewMid {
   margin: 8px;
-  border: 1px solid black;
+  min-height: 400px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .viewBottom {
   margin: 8px;
-  border: 1px solid black;
 }
 
+.blikeBox > span {
+  font-size: 24px;
+}
+.blikeBox {
+  width: 100px;
+}
+
+.bracket {
+  font-size: 22px;
+}
+.cnameB {
+  font-size: 22px;
+}
+.btitleB {
+  font-size: 22px;
+}
+
+.mnameB {
+  font-weight: bold;
+  font-size: 20px;
+}
