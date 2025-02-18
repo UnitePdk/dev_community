@@ -17,8 +17,8 @@ DevBoard
 https://github.com/UnitePdk/dev_community
 ## :file_folder: 프로젝트 계획서 
 <div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/src/main/resources/static/img/기획서1.png" style="width: 50%;">
-  <img src="/src/main/resources/static/img/기획서2.png" style="width: 50%;">
+  <img src="/src/main/resources/static/img/기획서1.png" style="width: 45%;">
+  <img src="/src/main/resources/static/img/기획서2.png" style="width: 45%;">
 </div>
 ## :computer: 기술 스택 
 <div align = center>
