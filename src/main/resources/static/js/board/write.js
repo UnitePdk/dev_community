@@ -14,6 +14,17 @@ const onWrite = () => {
   const btitle = document.querySelector(".btitle").value;
   const bcontent = document.querySelector(".bcontent").value;
 
+  let category = "";
+  if (cno == 1) {
+    category = "ask";
+  } else if (cno == 2) {
+    category = "advertise";
+  } else if (cno == 3) {
+    category = "tutorial";
+  } else if (cno == 4) {
+    category = "question";
+  }
+
   const obj = { cno: cno, lno: lno, btitle: btitle, bcontent: bcontent };
 
   const option = {
@@ -27,9 +38,77 @@ const onWrite = () => {
       console.log(data);
       if (data == true) {
         alert("글쓰기 성공");
-        location.href = `/board/ask`;
+        location.href = `/board/${category}`;
       } else {
         alert("글쓰기 실패 : 로그인후 가능합니다. ");
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+// 기존 글 불러오기
+const getBoard = () => {
+  const bno = new URL(location.href).searchParams.get("bno");
+
+  fetch(`/board/view.do?index=${bno}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      document.querySelector(".category").value = data.cno;
+      document.querySelector(".language").value = data.lno;
+      document.querySelector(".btitle").value = data.btitle;
+      document.querySelector(".bcontent").innerHTML = data.bcontent;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+// 글 수정
+const onUpdate = () => {
+  const bno = new URL(location.href).searchParams.get("bno");
+
+  const cno = document.querySelector(".category").value;
+  let category = "";
+  if (cno == 1) {
+    category = "ask";
+  } else if (cno == 2) {
+    category = "advertise";
+  } else if (cno == 3) {
+    category = "tutorial";
+  } else if (cno == 4) {
+    category = "question";
+  }
+
+  const lno = document.querySelector(".language").value;
+  const btitle = document.querySelector(".btitle").value;
+  const bcontent = document.querySelector(".bcontent").value;
+
+  const obj = {
+    bno: bno,
+    cno: cno,
+    lno: lno,
+    btitle: btitle,
+    bcontent: bcontent,
+  };
+
+  const option = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(obj),
+  };
+
+  fetch("/board/update.do", option)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data == true) {
+        alert("수정 성공");
+        location.href = `/board/${category}`;
+      } else {
+        alert("수정 실패 : 로그인후 가능합니다. ");
       }
     })
     .catch((e) => {

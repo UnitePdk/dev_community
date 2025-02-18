@@ -10,15 +10,12 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.viewMidBottom {
+  display: flex;
+  justify-content: space-between;
+}
 .viewBottom {
   margin: 8px;
-}
-
-.blikeBox > span {
-  font-size: 24px;
-}
-.blikeBox {
-  width: 100px;
 }
 
 .bracket {
@@ -30,8 +27,38 @@
 .btitleB {
   font-size: 22px;
 }
-
 .mnameB {
   font-weight: bold;
   font-size: 20px;
+}
+
+.blikeBox {
+  width: 100px;
+}
+.blikeBox > span {
+  font-size: 24px;
+}
+.updateBox {
+  margin-right: 180px;
+  display: flex;
+  gap: 20px;
+}
+.update {
+  background-color: #2e3b42;
+  border: 2px solid grey;
+  padding: 10px;
+  padding-bottom: 8px;
+}
+.update > a {
+  font-family: "SBAggroB";
+  color: white;
+  text-decoration: none;
+}
+.updateBox > button {
+  background-color: #2e3b42;
+  border: 2px solid grey;
+  color: white;
+  padding: 10px;
+  padding-bottom: 8px;
+  font-family: "SBAggroB";
 }

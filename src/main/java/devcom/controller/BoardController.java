@@ -39,7 +39,13 @@ public class BoardController {
 
     // 게시물 삭제
     @DeleteMapping("/board/delete.do")
-    public boolean boardDelete(@RequestParam int index){
+    public int boardDelete(@RequestParam int index){
         return boardService.boardDelete(index);
+    }
+
+    // 현재 로그인된 멤버 조회
+    @GetMapping("/getmno.do")
+    public int getmno(){
+        return boardService.getmno();
     }
 }
