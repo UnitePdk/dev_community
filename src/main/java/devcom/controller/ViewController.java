@@ -46,6 +46,14 @@ public class ViewController {
     @GetMapping("/board/view")
     public String view() { return "/board/question/view.html";}
 
+    // 메시지 목록 페이지 반환
+    @GetMapping("/message")
+    public String messageList() { return "/message/message.html";}
+
+    // 메시지 작성 페이지 반환
+    @GetMapping("/message/write")
+    public String messageWrite() { return "/message/write.html";}
+
     // 글쓰기 페이지 반환
     @GetMapping("/board/write")
     public String write() { return "/board/write.html";}

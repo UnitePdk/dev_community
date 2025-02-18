@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>message page</title>
+    <title>쪽지함</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/message.css" rel="stylesheet" />
   </head>
   <body>
-    <h3>Message.Html</h3>
-    <!-- 헤더 html 플러그인  -->
+    <!-- 헤더 html 플러그인 -->
     <div th:replace="~{ /header.html :: header }"></div>
 
-    <div class="container">
-      <!-- 헤더 부분분 -->
-      <div class="header">
-        <div class="header_right">로고고</div>
-
-        <div class="header_left">로그인 상태</div>
+    <div class="container mt-4">
+      <h2>전체 쪽지함</h2>
+      <div class="message-content">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>제목</th>
+            <th>상대방</th>
+            <th>유형</th>
+            <th>날짜</th>
+            <th>내용</th> 
+            <th>삭제</th>
+          </tr>
+          </thead>
+          <tbody id="allMessages"></tbody>
+        </table>
+        <ul class="pagination pagebox"></ul>
       </div>
-      <!-- 메인 왼쪽 박스 부분 -->
-      <nav>
-        <div class="rightbox"></div>
-        <div class="left box">
-          <!-- btn btn-primary 부트스트랩 css -->
-          <button class="btn btn-primary" type="button" onclick="location.href='/board/write' ">쪽지 쓰기</button>
-        </div>
-      </nav>
+      <button class="btn btn-primary mt-3" onclick="location.href='/message/write'">쪽지 보내기</button>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/message/message.js"></script>
   </body>
 </html>

@@ -14,4 +14,6 @@ public interface MessageRepository extends JpaRepository<MessageEntity, Integer>
     List<MessageEntity> findBySendermno(MemberEntity sendermno);
     // 삭제되지 않은 메세지 찾기
     List<MessageEntity> findBySendermnoAndDeletedBySenderFalseAndDeletedByReceiverFalse(MemberEntity sendermno);
+    List<MessageEntity> findByReceivermnoAndDeletedBySenderFalseAndDeletedByReceiverFalse(MemberEntity receivermno);
+
 }
