@@ -45,7 +45,7 @@ public class ViewController {
     // 게시물 내용 조회 페이지 반환
     @GetMapping("/board/view")
     public String view() { return "/board/question/view.html";}
-    
+
     // 메시지 목록 페이지 반환
     @GetMapping("/message")
     public String messageList() { return "/message/message.html";}

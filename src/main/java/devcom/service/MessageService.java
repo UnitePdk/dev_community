@@ -26,18 +26,17 @@ public class MessageService {
     public boolean send(MessageDto messageDto) {
         try{
             // 추가
-            // 1. 현재 로그인 된 세션 객체 조회
-            MemberDto loginDto = memberService.info();
-            if (loginDto == null) {
-                System.out.println("메세지 전송 실패: 로그인 필요");
-                return false;
+            int mno=0;
+            if(memberService.getSession()!=null) {
+                mno = memberRepository.findByMid(memberService.getSession()).getMno();
             }
+//            MemberEntity loginEntity = memberRepository.findById( mno ).get();
 
             // 2. messageDto entity 변환
             MessageEntity messageEntity = messageDto.toEntity();
 
             // 3. 로그인된 회원을 발신자로 설정
-            MemberEntity sendEntity = memberRepository.findById(loginDto.getMno()).get();
+            MemberEntity sendEntity = memberRepository.findById(mno).get();
             messageEntity.setSendermno(sendEntity);
 
             // 4. 수신자 존재 여부 확인 및 설정
@@ -77,7 +76,7 @@ public class MessageService {
         if(memberOtp.isPresent()) {
             System.out.println("회원 찾음: " + memberOtp.get().getMid());
             // 2. 받은 메세지 찾기 (삭제되지 않은 메세지만)
-            List<MessageEntity> messageEntities = messageRepository.findBySendermnoAndDeletedBySenderFalseAndDeletedByReceiverFalse(memberOtp.get()); // 삭제 X 메세지만 반환
+            List<MessageEntity> messageEntities = messageRepository.findByReceivermnoAndDeletedBySenderFalseAndDeletedByReceiverFalse(memberOtp.get()); // 삭제 X 메세지만 반환
             System.out.println("찾은 메세지 수: " + messageEntities.size());
 
             // 3. 엔티티 리스트 dto 변환
@@ -228,6 +227,28 @@ public class MessageService {
         } catch (Exception e) {
             System.out.println("받은 메세지 삭제 실패" + e);
             return false;
+        }
+    }
+
+    public int mno() {
+        int mno=0;
+        if(memberService.getSession()!=null) {
+            mno = memberRepository.findByMid(memberService.getSession()).getMno();
+        }
+        return mno;
+    }
+
+    // ID로 회원번호 찾기
+    public Integer findMnoById(String mid) {
+        try {
+            MemberEntity member = memberRepository.findByMid(mid);
+            if (member != null) {
+                return member.getMno();
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("회원번호 조회 실패: " + e);
+            return null;
         }
     }
 }

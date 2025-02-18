@@ -68,5 +68,18 @@ public class MessageController {
         }
     }
 
+    @GetMapping("/mno.do")
+    public int mno(){
+        return messageService.mno();
+    }
 
+    // ID로 회원번호 조회
+    @GetMapping("/message/find-mno/{mid}")
+    public ResponseEntity<Integer> findMnoById(@PathVariable String mid) {
+        Integer mno = messageService.findMnoById(mid);
+        if (mno != null) {
+            return ResponseEntity.ok(mno);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
 }
