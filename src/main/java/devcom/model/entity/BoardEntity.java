@@ -36,17 +36,17 @@ public class BoardEntity extends BaseTime {
     private int blike;
 
     // 작성자 fk
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "mno")
     private MemberEntity memberEntity;
 
     // 카테고리 fk
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cno")
     private CategoryEntity categoryEntity;
 
     // 언어 fk
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "lno")
     private LanguageEntity languageEntity;
 

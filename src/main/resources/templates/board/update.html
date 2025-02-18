@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/write.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div th:replace="~{ /header.html :: header }"></div>
+
+      <section class="writeTop">
+        <div style="width: 200px">
+          <select class="form-select category">
+            <option value="1">질문</option>
+            <option value="2">대외/취업/홍보</option>
+            <option value="3">튜토리얼</option>
+            <option value="4">문제은행</option>
+          </select>
+        </div>
+        <div style="width: 200px">
+          <select class="form-select language">
+            <option value="1">C/C++</option>
+            <option value="2">C#</option>
+            <option value="3">Java</option>
+            <option value="4">Python</option>
+            <option value="5">Html/Css</option>
+            <option value="6">JavaScript</option>
+            <option value="7">TypeScript</option>
+            <option value="8">Kotlin</option>
+            <option value="9">Swift</option>
+            <option value="10">Go</option>
+            <option value="11">Rust</option>
+            <option value="12">기타</option>
+          </select>
+        </div>
+        <input
+          type="text"
+          class="form-control btitle"
+          placeholder="제목을 입력하세요"
+        />
+      </section>
+
+      <hr />
+
+      <section class="writeMid">
+        <textarea id="summernote" name="editordata" class="bcontent"></textarea>
+        <br />
+      </section>
+
+      <button
+        type="button"
+        class="writeButton hoverAccent"
+        onclick="onUpdate()"
+      >
+        수정 완료
+      </button>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/lang/summernote-ko-KR.min.js"></script>
+    <script src="/js/board/write.js"></script>
+    <script>
+      getBoard();
+    </script>
+  </body>
+</html>

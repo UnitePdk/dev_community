@@ -49,4 +49,8 @@ public class ViewController {
     // 글쓰기 페이지 반환
     @GetMapping("/board/write")
     public String write() { return "/board/write.html";}
+
+    // 글 수정 페이지 반환
+    @GetMapping("/board/update")
+    public String update() { return "/board/update.html";}
 }
