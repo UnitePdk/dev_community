@@ -372,6 +372,14 @@ insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("부트캠�
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("에러가 왜 뜨냐", 26, now(), now(), 2, 4);
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("이직하고 싶습니다..", 33, now(), now(), 4, 2);
 insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("자격증은 어떻게 준비하셨나요?", 8, now(), now(), 3, 1);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("클라우드 컴퓨팅은 뭔가요?", 11, now(), now(), 5, 125);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("저는 활용 잘하고 있습니다", 5, now(), now(), 1, 125);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("이력서 접수 완료", 20, now(), now(), 4, 205);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("저도 접수 했습니다.", 3, now(), now(), 1, 205);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("React는 공부했는데, node는 아직 잘 모르겠네요ㅠㅠ", 27, now(), now(), 2, 265);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("차이점 설명해주실 수 있으실까요??", 110, now(), now(), 5, 265);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("와, 이거 저도 찾고 있었어요", 7, now(), now(), 1, 300);
+insert into reply (rcontent, relike, cdate, udate, mno, bno) values ("다들 어떻게 푸시는 걸까요..", 18, now(), now(), 3, 300);
 
 INSERT INTO message (receivermno, sendermno, mecontent, metitle, deleted_by_receiver, deleted_by_sender)VALUE(2, 1, '안녕하세요! 오랜만이에요.', '인사', 0, 0);
 INSERT INTO message (receivermno, sendermno, mecontent, metitle, deleted_by_receiver, deleted_by_sender)VALUE(3, 1, '이번 프로젝트 관련해서 논의가 필요합니다.', '프로젝트 논의', 0, 0);

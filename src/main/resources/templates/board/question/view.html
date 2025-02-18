@@ -48,15 +48,15 @@
           <span>❤</span>
           <span class="blike"></span>
         </div>
+        <script src="/js/board/view.js"></script>
       </section>
 
       <hr />
 
       <section class="viewBottom">
-        <div th:replace="~{ /reply.html :: reply }"></div>
+        <div th:replace="~{ /reply/reply.html :: reply }"></div>
       </section>
-
-      <script src="/js/board/view.js"></script>
+      
     </div>
     <div th:replace="~{ /footer.html :: footer }"></div>
   </body>

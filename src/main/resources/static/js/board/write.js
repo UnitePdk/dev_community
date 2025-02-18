@@ -10,9 +10,9 @@ $(document).ready(function () {
 // 글쓰기
 const onWrite = () => {
   const cno = document.querySelector(".category").value;
+  const lno = document.querySelector(".language").value;
   const btitle = document.querySelector(".btitle").value;
   const bcontent = document.querySelector(".bcontent").value;
-  const lno = 1;
 
   const obj = { cno: cno, lno: lno, btitle: btitle, bcontent: bcontent };
 

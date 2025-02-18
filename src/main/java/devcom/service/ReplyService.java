@@ -24,20 +24,23 @@ public class ReplyService {
     @Autowired BoardRepository boardRepository;
     @Autowired MemberRepository memberRepository;
     @Autowired MemberService memberService;
+    @Autowired BoardService boardService;
 
     // 모든 게시물에 댓글 목록 조회
-    public List<ReplyDto> replyFindAll() {
+    public List<ReplyDto> replyFindAll(int bno) {
         List<ReplyEntity> replyEntityList = replyRepository.findAll();
 
-        // 모든 엔티티 --> dto 변환
-        List<ReplyDto> replyDtoList = new ArrayList<>();
-        
-        // 모든 댓글 엔티티를 반복문으로 조회
-        replyEntityList.forEach(entity -> {
-            ReplyDto replyDto = entity.toDto();
-            replyDtoList.add(replyDto);
+        List<ReplyDto> replyList=new ArrayList<>();
+
+        replyEntityList.forEach( (reply) ->{
+            // * 만약에 현재 조회중인 게시물번호 와 댓글리스트내 반복중인 댓글의 게시물번호 와 같다면
+            if( reply.getBoardEntity().getBno() == bno ){
+                ReplyDto replyDto=reply.toDto();
+                replyList.add(replyDto);
+            }
         });
-        return replyDtoList;
+
+        return replyList;
     }
 
     // 특정 게시물에 댓글 쓰기
@@ -47,6 +50,7 @@ public class ReplyService {
         MemberDto memberDto = memberService.info();
         System.out.println("로그인 정보 : " + memberDto);
         if (memberDto == null) {
+            System.out.println("로그인 정보 없음");
             return false;   // 로그인이 안된 경우 실패
         }
 
@@ -55,16 +59,20 @@ public class ReplyService {
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
         System.out.println("회원 엔티티 : " + memberEntity);
 
-        // 입력한 bno를 이용해 게시판 엔티티 조회
-        Optional<BoardEntity> boardEntityOpt = boardRepository.findById(replyDto.getBno());
-        if (boardEntityOpt.isEmpty()) {
-            System.out.println("게시글을 찾을 수 없습니다.");
-            return false;   // 게시글이 없으면 실패 처리
+        // 게시판 엔티티 조회 전에 bno 유효성 검사
+        if (replyDto.getBno() <= 0) {
+            System.out.println("잘못된 게시글 번호: " + replyDto.getBno());
+            return false;
         }
-        BoardEntity boardEntity = boardEntityOpt.get();
+
+        // 게시판 엔티티 조회
+        BoardEntity boardEntity = boardRepository.findById(replyDto.getBno())
+                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+        System.out.println("게시판 엔티티 " + boardEntity );
 
         // replyDto → replyEntity 변환 (MemberEntity, BoardEntity 포함)
         ReplyEntity replyEntity = replyDto.toEntity(memberEntity, boardEntity);
+        replyEntity.setRelike(0);   // 좋아요 수 설정
         System.out.println("변환된 댓글 엔티티 : " + replyEntity);
 
         // DB에 저장
@@ -74,6 +82,7 @@ public class ReplyService {
 
             // 결과 반환
             return saveReplyEntity.getRno() > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;  // 예외 발생 시 실패 처리

@@ -30,14 +30,17 @@ header {
   object-fit: contain;
 }
 .login {
-  background-color: #5885af;
+  /* background-color: #5885af; */
 }
 .login > a {
-  color: #d9e4ec;
+  color: #283640;
   padding: 10px;
   padding-bottom: 6px;
   font-size: 16px;
   font-family: "SBAggroB";
+}
+.login > a:hover {
+  color: #6aabd2;
 }
 
 /* 메뉴 */

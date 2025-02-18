@@ -41,6 +41,13 @@ const findAll = () => {
       printPagenation(data, key, keyword);
     })
     .catch((e) => console.log(e));
+
+  const buttons = document.querySelectorAll(".lang");
+  buttons.forEach((button) => {
+    if (button.value == lno) {
+      button.classList.add("active");
+    }
+  });
 };
 
 // 글쓰기

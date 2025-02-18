@@ -24,3 +24,9 @@ onFind();
 const boardLike = () => {
   console.log("좋아요");
 };
+
+const getBno=()=>{
+  const bno = new URL(location.href).searchParams.get("bno");
+
+  return bno;
+}
