@@ -1,5 +1,5 @@
 ## :desktop_computer: 프로젝트명
-DevBoard
+DevBoard<b>
 ## :technologist: 팀원
 김민선,송정아,박건희,오병준
 ## :calendar: 프로젝트 기간 
