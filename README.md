@@ -17,7 +17,7 @@ DevBoard
 3. 미니멀한 디자인으로 신규 이용자도 복잡하지 않게 찾을 수 있는 인터페이스와 카테고리를 제공한다.
 4. 쪽지 기능을 통해 사용자간 원활하고 자유로운 의사소통을 제공한다.
 ## :link: 프로젝트 Git & 프로젝트 영상 
-https://github.com/UnitePdk/dev_community
+https://github.com/UnitePdk/dev_community</br>
 https://youtu.be/wl5b3MpOOmg
 ## :file_folder: 프로젝트 계획서 
 <div style="display: flex; justify-content: center; gap: 10px;">
