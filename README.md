@@ -16,7 +16,7 @@ DevBoard
 ## :link: 프로젝트 Git 
 https://github.com/UnitePdk/dev_community
 ## :file_folder: 프로젝트 계획서 
-<img src="/img/기획서1.png"><img src="/img/기획서2.png">
+<img src="/img/기획서1.png" style="width:20px"><img src="/img/기획서2.png" style="width:20px">
 ## :computer: 기술 스택 
 <div align = center>
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
