@@ -16,7 +16,7 @@ DevBoard
 ## :link: 프로젝트 Git 
 https://github.com/UnitePdk/dev_community
 ## :file_folder: 프로젝트 계획서 
-<div style="display: flex; justify-content: center; gap: 10px;">
+<div style="display: flex; justify-content: center; gap: 5px;">
   <img src="/src/main/resources/static/img/기획서1.png" style="width: 70%;">
   <img src="/src/main/resources/static/img/기획서2.png" style="width: 70%;">
 </div>
